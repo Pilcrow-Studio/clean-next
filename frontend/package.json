@@ -4,8 +4,8 @@
   "scripts": {
     "prebuild": "npm run typegen",
     "build": "next build",
-    "cf:build": "npm run build && cloudflare",
-    "cf:deploy": "npm run cf:build && wrangler deploy",
+    "cf:build": "npx opennextjs-cloudflare build",
+    "cf:deploy": "npx opennextjs-cloudflare build && npx opennextjs-cloudflare deploy",
     "cf:dev": "wrangler dev",
     "predev": "npm run typegen",
     "dev": "next dev --turbopack",

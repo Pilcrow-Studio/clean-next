@@ -9,7 +9,7 @@ const imageBuilder = createImageUrlBuilder({
   dataset: dataset || '',
 })
 
-export const urlForImage = (source: any) => {
+export const urlForImage = (source: any, width?: number, height?: number) => {
   // Ensure that source image contains a valid reference
   if (!source?.asset?._ref) {
     return undefined
@@ -17,30 +17,44 @@ export const urlForImage = (source: any) => {
 
   const imageRef = source?.asset?._ref
   const crop = source.crop
+  const hotspot = source.hotspot
 
   // get the image's og dimensions
-  const {width, height} = getImageDimensions(imageRef)
+  const {width: imgWidth, height: imgHeight} = getImageDimensions(imageRef)
+
+  let builder = imageBuilder?.image(source)
 
   if (Boolean(crop)) {
     // compute the cropped image's area
-    const croppedWidth = Math.floor(width * (1 - (crop.right + crop.left)))
-
-    const croppedHeight = Math.floor(height * (1 - (crop.top + crop.bottom)))
+    const croppedWidth = Math.floor(imgWidth * (1 - (crop.right + crop.left)))
+    const croppedHeight = Math.floor(imgHeight * (1 - (crop.top + crop.bottom)))
 
     // compute the cropped image's position
-    const left = Math.floor(width * crop.left)
-    const top = Math.floor(height * crop.top)
+    const left = Math.floor(imgWidth * crop.left)
+    const top = Math.floor(imgHeight * crop.top)
 
-    // gather into a url
-    return imageBuilder?.image(source).rect(left, top, croppedWidth, croppedHeight).auto('format')
+    builder = builder.rect(left, top, croppedWidth, croppedHeight)
   }
 
-  return imageBuilder?.image(source).auto('format')
+  // Apply hotspot if it exists
+  if (Boolean(hotspot)) {
+    builder = builder.fit('crop').crop('focalpoint').focalPoint(hotspot.x, hotspot.y)
+  }
+
+  // Apply dimensions if provided
+  if (width) {
+    builder = builder.width(width)
+  }
+  if (height) {
+    builder = builder.height(height)
+  }
+
+  return builder.auto('format')
 }
 
 export function resolveOpenGraphImage(image: any, width = 1200, height = 627) {
   if (!image) return
-  const url = urlForImage(image)?.width(1200).height(627).fit('crop').url()
+  const url = urlForImage(image, width, height)?.url()
   if (!url) return
   return {url, alt: image?.alt as string, width, height}
 }

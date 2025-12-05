@@ -7,7 +7,9 @@ const nextConfig: NextConfig = {
   },
   images: {
     domains: ['cdn.sanity.io'],
-  }
+  },
+  // Output mode for OpenNext Cloudflare adapter
+  output: 'standalone',
 }
 
 export default nextConfig

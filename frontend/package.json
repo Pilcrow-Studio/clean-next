@@ -4,6 +4,9 @@
   "scripts": {
     "prebuild": "npm run typegen",
     "build": "next build",
+    "cf:build": "npm run build && cloudflare",
+    "cf:deploy": "npm run cf:build && wrangler deploy",
+    "cf:dev": "wrangler dev",
     "predev": "npm run typegen",
     "dev": "next dev --turbopack",
     "lint": "next lint",
@@ -31,11 +34,13 @@
     "tailwindcss": "^4.1.17"
   },
   "devDependencies": {
+    "@opennextjs/cloudflare": "^1.14.3",
     "@types/node": "^20.19.25",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "eslint": "^9.39.1",
     "eslint-config-next": "^15.5.6",
-    "typescript": "5.9.3"
+    "typescript": "5.9.3",
+    "wrangler": "^4.53.0"
   }
 }

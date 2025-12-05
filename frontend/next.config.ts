@@ -6,7 +6,14 @@ const nextConfig: NextConfig = {
     SC_DISABLE_SPEEDY: 'false',
   },
   images: {
-    domains: ['cdn.sanity.io'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'cdn.sanity.io',
+      },
+    ],
+    // Disable Next.js image optimization for Cloudflare - Sanity handles optimization
+    unoptimized: true,
   },
   // Output mode for OpenNext Cloudflare adapter
   output: 'standalone',

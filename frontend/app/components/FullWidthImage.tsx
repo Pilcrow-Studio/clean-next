@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import {urlForImage} from '@/sanity/lib/utils'
 
 interface FullWidthImageProps {
@@ -18,16 +17,12 @@ export default function FullWidthImage({block}: FullWidthImageProps) {
 
   return (
     <div className="w-full aspect-4/5">
-      <div className="relative w-full h-full">
-        <Image
-          src={imageUrl}
-          alt={block.alt || ''}
-          fill
-          className="object-cover w-full"
-          sizes="100vw"
-          priority={false}
-        />
-      </div>
+      <img
+        src={imageUrl}
+        alt={block.alt || ''}
+        className="w-full h-full object-cover"
+        loading="lazy"
+      />
     </div>
   )
 }

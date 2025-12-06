@@ -8,6 +8,7 @@ import {structureTool} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './src/schemaTypes'
 import {structure} from './src/structure'
+import {media, mediaAssetSource} from 'sanity-plugin-media'
 import {unsplashImageAsset} from 'sanity-plugin-asset-source-unsplash'
 import {
   presentationTool,
@@ -66,7 +67,7 @@ export default defineConfig({
         mainDocuments: defineDocuments([
           {
             route: '/',
-            filter: `_type == "settings" && _id == "siteSettings"`,
+            filter: `_type == "home"`,
           },
           {
             route: '/:slug',
@@ -79,6 +80,11 @@ export default defineConfig({
         ]),
         // Locations Resolver API allows you to define where data is being used in your application. https://www.sanity.io/docs/presentation-resolver-api#8d8bca7bfcd7
         locations: {
+          home: defineLocations({
+            locations: [homeLocation],
+            message: 'This is the home / front page',
+            tone: 'positive',
+          }),
           settings: defineLocations({
             locations: [homeLocation],
             message: 'This document is used on all pages',
@@ -123,10 +129,24 @@ export default defineConfig({
       structure, // Custom studio structure configuration, imported from ./src/structure.ts
     }),
     // Additional plugins for enhanced functionality
+    media(),
     unsplashImageAsset(),
     assist(),
     visionTool(),
   ],
+  form: {
+    // Don't use this plugin when selecting files only (but allow all other enabled asset sources)
+    file: {
+      assetSources: previousAssetSources => {
+        return previousAssetSources.filter(assetSource => assetSource !== mediaAssetSource)
+      }
+    },
+    image: {
+      assetSources: previousAssetSources => {
+        return previousAssetSources.filter(assetSource => assetSource !== mediaAssetSource)
+      }
+    },
+  },
 
   // Schema configuration, imported from ./src/schemaTypes/index.ts
   schema: {

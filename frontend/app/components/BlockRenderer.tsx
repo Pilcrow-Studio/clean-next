@@ -46,6 +46,8 @@ export default function BlockRenderer({block, index, pageId, pageType}: BlockPro
           key: block._key,
           block: block,
           index: index,
+          pageId: pageId,
+          pageType: pageType,
         })}
       </div>
     )

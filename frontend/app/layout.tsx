@@ -7,7 +7,6 @@ import {draftMode} from 'next/headers'
 import { toPlainText} from 'next-sanity'
 import { VisualEditing } from 'next-sanity/visual-editing'
 import {Toaster} from 'sonner'
-import TransitionLink from '@/app/components/TransitionLink'
 import DraftModeToast from '@/app/components/DraftModeToast'
 import Footer from '@/app/components/Footer'
 import Header from '@/app/components/Header'
@@ -64,8 +63,7 @@ export default async function RootLayout({children}: {children: React.ReactNode}
   return (
     <html lang="en" className={`${inter.variable} bg-white text-black`}>
       <body>
-        <TransitionLink href="/">Home</TransitionLink>
-        <section className="min-h-screen pt-24">
+        <section className="min-h-screen pt-24" suppressHydrationWarning>
           {/* The <Toaster> component is responsible for rendering toast notifications used in /app/client-utils.ts and /app/components/DraftModeToast.tsx */}
           <Toaster />
           {isDraftMode && (
@@ -78,10 +76,8 @@ export default async function RootLayout({children}: {children: React.ReactNode}
           {/* The <SanityLive> component is responsible for making all sanityFetch calls in your application live, so should always be rendered. */}
           <SanityLive onError={handleError} />
           <Header />
-          <main className="">{children}</main>
-          <Footer />
+            <main className="">{children}</main>
         </section>
-        <SpeedInsights />
       </body>
     </html>
   )

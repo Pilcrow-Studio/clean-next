@@ -1,7 +1,4 @@
-import {stegaClean} from '@sanity/client/stega'
-import {Image} from 'next-sanity/image'
-import {getImageDimensions} from '@sanity/asset-utils'
-import {urlForImage} from '@/sanity/lib/utils'
+import ResponsiveImage from './ResponsiveImage'
 
 interface CoverImageProps {
   image: any
@@ -10,16 +7,18 @@ interface CoverImageProps {
 
 export default function CoverImage(props: CoverImageProps) {
   const {image: source, priority} = props
-  const image = source?.asset?._ref ? (
-    <Image
-      className="object-cover"
-      width={getImageDimensions(source).width}
-      height={getImageDimensions(source).height}
-      alt={stegaClean(source?.alt) || ''}
-      src={urlForImage(source)?.url() as string}
-      priority={priority}
-    />
-  ) : null
 
-  return <div className="relative">{image}</div>
+  if (!source?.asset?._ref) return null
+
+  return (
+    <div className="relative">
+      <ResponsiveImage
+        image={source}
+        className="object-cover"
+        loading={priority ? 'eager' : 'lazy'}
+        fetchPriority={priority ? 'high' : 'auto'}
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+      />
+    </div>
+  )
 }

@@ -2,12 +2,12 @@
   "name": "frontend",
   "private": true,
   "scripts": {
-    "prebuild": "npm run typegen",
+    "prebuild": "pnpm run typegen",
     "build": "next build",
-    "cf:build": "npx opennextjs-cloudflare build",
-    "cf:deploy": "npx opennextjs-cloudflare build && npx opennextjs-cloudflare deploy",
+    "cf:build": "pnpm dlx opennextjs-cloudflare build",
+    "cf:deploy": "pnpm dlx opennextjs-cloudflare build && pnpm dlx opennextjs-cloudflare deploy",
     "cf:dev": "wrangler dev",
-    "predev": "npm run typegen",
+    "predev": "pnpm run typegen",
     "dev": "next dev --turbopack",
     "lint": "next lint",
     "start": "next start",
@@ -15,6 +15,8 @@
     "typegen": "sanity typegen generate"
   },
   "dependencies": {
+    "@portabletext/react": "^5.0.0",
+    "@sanity/asset-utils": "^2.3.0",
     "@sanity/client": "^7.13.1",
     "@sanity/image-url": "^1.2.0",
     "@sanity/uuid": "^3.0.2",

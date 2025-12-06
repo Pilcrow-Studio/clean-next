@@ -11,13 +11,21 @@
 import {PortableText, type PortableTextComponents, type PortableTextBlock} from 'next-sanity'
 
 import ResolvedLink from '@/app/components/ResolvedLink'
+import ResponsiveImage from './ResponsiveImage'
+import {dataAttr} from '@/sanity/lib/utils'
 
 export default function CustomPortableText({
   className,
   value,
+  documentId,
+  documentType,
+  fieldPath = 'content',
 }: {
   className?: string
   value: PortableTextBlock[]
+  documentId?: string
+  documentType?: string
+  fieldPath?: string
 }) {
   const components: PortableTextComponents = {
     block: {
@@ -77,6 +85,37 @@ export default function CustomPortableText({
     marks: {
       link: ({children, value: link}) => {
         return <ResolvedLink link={link}>{children}</ResolvedLink>
+      },
+    },
+    types: {
+      image: ({value}) => {
+        if (!value?.asset) return null
+
+        const imageDataAttr =
+          documentId && documentType && value._key
+            ? dataAttr({
+                id: documentId,
+                type: documentType,
+                path: `${fieldPath}[_key=="${value._key}"]`,
+              }).toString()
+            : undefined
+
+        return (
+          <figure className="my-8" data-sanity={imageDataAttr}>
+            <ResponsiveImage
+              image={value}
+              alt={value.alt}
+              className="w-full h-auto"
+              sizes="(max-width: 768px) 500px, 768px"
+              quality={85}
+            />
+            {value.caption && (
+              <figcaption className="mt-2 text-center text-sm text-gray-600">
+                {value.caption}
+              </figcaption>
+            )}
+          </figure>
+        )
       },
     },
   }

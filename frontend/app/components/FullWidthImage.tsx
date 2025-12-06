@@ -1,4 +1,4 @@
-import {urlForImage} from '@/sanity/lib/utils'
+import ResponsiveImage from './ResponsiveImage'
 
 interface FullWidthImageProps {
   block: {
@@ -10,18 +10,20 @@ interface FullWidthImageProps {
 }
 
 export default function FullWidthImage({block}: FullWidthImageProps) {
-  // Use 4:5 aspect ratio (1920 x 2400) for hotspot-aware cropping
-  const imageUrl = urlForImage(block.image, 1920, 2400)?.url()
-
-  if (!imageUrl) return null
+  if (!block.image?.asset) return null
 
   return (
-    <div className="w-full aspect-4/5">
-      <img
-        src={imageUrl}
-        alt={block.alt || ''}
+    <div className="w-full aspect-video">
+      <ResponsiveImage
+        image={block.image}
+        alt={block.alt}
         className="w-full h-full object-cover"
-        loading="lazy"
+        sizes="100vw"
+        quality={80}
+        usePixelDensity={true}
+        baseWidth={720}
+        aspectRatio={16/9}
+        fit="crop"
       />
     </div>
   )

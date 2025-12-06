@@ -33,3 +33,30 @@
 
   --default-transition-duration: 250ms;
 }
+
+/* Page transition animations */
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+body.exit-animation main {
+  animation: fadeOut 600ms ease-in-out forwards;
+}
+
+body.enter-animation main {
+  animation: fadeIn 600ms ease-in-out forwards;
+}

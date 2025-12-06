@@ -8,7 +8,7 @@
   "license": "UNLICENSED",
   "main": "package.json",
   "scripts": {
-    "prebuild": "npm run extract-types",
+    "prebuild": "pnpm run extract-types",
     "build": "sanity build",
     "deploy": "sanity deploy",
     "dev": "sanity dev",
@@ -27,6 +27,7 @@
     "rxjs": "^7.8.2",
     "sanity": "^4.20.3",
     "sanity-plugin-asset-source-unsplash": "^4.0.1",
+    "sanity-plugin-media": "^4.1.0",
     "styled-components": "^6.1.19"
   },
   "devDependencies": {

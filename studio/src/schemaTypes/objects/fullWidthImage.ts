@@ -11,14 +11,30 @@ export const fullWidthImage = defineType({
       name: 'image',
       title: 'Image',
       type: 'image',
+      fields: [
+        defineField({
+          name: 'alt',
+          title: 'Alt',
+          type: 'string',
+        }),
+      ],
       options: {
         hotspot: true,
+        aiAssist: {
+          imageDescriptionField: 'alt',
+        },
       },
     }),
-    defineField({
-      name: 'alt',
-      title: 'Alt',
-      type: 'string',
-    }),
   ],
+  preview: {
+    select: {
+      image: 'image',
+    },
+    prepare(selection) {
+      return {
+        title: selection.image?.alt,
+        media: selection.image,
+      }
+    },
+  },
 })

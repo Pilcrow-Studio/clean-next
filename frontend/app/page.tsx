@@ -13,7 +13,7 @@ export default async function Page() {
         <h1 className="text-4xl font-bold mb-4">Welcome</h1>
         <p className="text-gray-600">Please configure your home page in Sanity Studio.</p>
         <p className="text-sm text-gray-500 mt-4">
-          Make sure you've published the home document in Sanity Studio.
+          Make sure you&apos;ve published the home document in Sanity Studio.
         </p>
       </div>
     )

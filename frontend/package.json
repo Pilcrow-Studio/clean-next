@@ -4,8 +4,8 @@
   "scripts": {
     "prebuild": "pnpm run typegen",
     "build": "next build",
-    "cf:build": "pnpm dlx opennextjs-cloudflare build",
-    "cf:deploy": "pnpm dlx opennextjs-cloudflare build && pnpm dlx opennextjs-cloudflare deploy",
+    "cf:build": "pnpm dlx @opennextjs/cloudflare build",
+    "cf:deploy": "pnpm dlx @opennextjs/cloudflare build && pnpm dlx @opennextjs/cloudflare deploy",
     "cf:dev": "wrangler dev",
     "predev": "pnpm run typegen",
     "dev": "next dev --turbopack",

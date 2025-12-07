@@ -82,6 +82,7 @@ export default async function RootLayout({children}: {children: React.ReactNode}
             <main className="">{children}</main>
         </section>
       </body>
+      <SpeedInsights />
     </html>
   )
 }

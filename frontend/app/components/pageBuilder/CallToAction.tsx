@@ -1,7 +1,9 @@
 import Link from 'next/link'
 
 interface CallToActionProps {
-  heading: string
+  _type?: string
+  _key?: string
+  heading?: string
   text?: string
   buttonText?: string
   link?: {
@@ -9,7 +11,9 @@ interface CallToActionProps {
     page?: string
     post?: string
     href?: string
-  }
+  } | null
+  pageId?: string
+  pageType?: string
 }
 
 export default function CallToAction({ heading, text, buttonText, link }: CallToActionProps) {

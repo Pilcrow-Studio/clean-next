@@ -3,6 +3,7 @@ import {Link} from '@/sanity.types'
 import {dataset, projectId, studioUrl} from '@/sanity/lib/api'
 import {createDataAttribute, CreateDataAttributeProps} from 'next-sanity'
 import {getImageDimensions} from '@sanity/asset-utils'
+import type {Metadata} from 'next'
 
 const imageBuilder = createImageUrlBuilder({
   projectId: projectId || '',
@@ -93,4 +94,44 @@ export function dataAttr(config: DataAttributeConfig) {
     dataset,
     baseUrl: studioUrl,
   }).combine(config)
+}
+
+export function generateMetadataFromSeo(
+  seo: any,
+  fallbackTitle?: string,
+  fallbackDescription?: string,
+): Metadata {
+  const metadata: Metadata = {}
+
+  if (seo?.title || fallbackTitle) {
+    metadata.title = seo?.title || fallbackTitle
+  }
+
+  if (seo?.description || fallbackDescription) {
+    metadata.description = seo?.description || fallbackDescription
+  }
+
+  if (seo?.hideFromSearchEngines) {
+    metadata.robots = {
+      index: false,
+      follow: false,
+    }
+  }
+
+  if (seo?.canonicalUrl) {
+    metadata.alternates = {
+      canonical: seo.canonicalUrl,
+    }
+  }
+
+  if (seo?.openGraph) {
+    const ogImage = seo.openGraph.image ? resolveOpenGraphImage(seo.openGraph.image) : undefined
+    metadata.openGraph = {
+      title: seo.openGraph.title || seo?.title || fallbackTitle,
+      description: seo.openGraph.description || seo?.description || fallbackDescription,
+      images: ogImage ? [ogImage] : [],
+    }
+  }
+
+  return metadata
 }

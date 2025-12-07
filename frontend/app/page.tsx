@@ -1,6 +1,33 @@
+import type {Metadata} from 'next'
 import PageBuilder from '@/app/components/pageBuilder/PageBuilder'
 import {homeQuery} from '@/sanity/lib/queries'
 import {sanityFetch} from '@/sanity/lib/live'
+import {generateMetadataFromSeo} from '@/sanity/lib/utils'
+
+// Temporary type until home document is published in Sanity
+type HomeData = {
+  _id: string
+  title?: string
+  seo?: any
+  pageBuilder?: any[]
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  const {data: home} = await sanityFetch({
+    query: homeQuery,
+    stega: false,
+  })
+
+  if (!home) {
+    return {
+      title: 'Home',
+      description: 'Welcome to our site',
+    }
+  }
+
+  const homeData = home as unknown as HomeData
+  return generateMetadataFromSeo(homeData.seo, homeData.title || 'Home', undefined)
+}
 
 export default async function Page() {
   const {data: home} = await sanityFetch({
@@ -19,10 +46,11 @@ export default async function Page() {
     )
   }
 
+  const homeData = home as unknown as HomeData
   return (
     <PageBuilder
-      sections={home.pageBuilder}
-      pageId={home._id}
+      sections={homeData.pageBuilder}
+      pageId={homeData._id}
       pageType="home"
     />
   )

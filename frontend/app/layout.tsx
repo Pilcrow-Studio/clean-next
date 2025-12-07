@@ -6,6 +6,7 @@ import {Inter} from 'next/font/google'
 import {draftMode} from 'next/headers'
 import { toPlainText} from 'next-sanity'
 import { VisualEditing } from 'next-sanity/visual-editing'
+import {Suspense} from 'react'
 import {Toaster} from 'sonner'
 import DraftModeToast from '@/app/components/DraftModeToast'
 import Footer from '@/app/components/Footer'
@@ -70,7 +71,9 @@ export default async function RootLayout({children}: {children: React.ReactNode}
             <>
               <DraftModeToast />
               {/*  Enable Visual Editing, only to be rendered when Draft Mode is enabled */}
-              <VisualEditing />
+              <Suspense fallback={null}>
+                <VisualEditing />
+              </Suspense>
             </>
           )}
           {/* The <SanityLive> component is responsible for making all sanityFetch calls in your application live, so should always be rendered. */}

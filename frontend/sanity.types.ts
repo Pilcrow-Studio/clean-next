@@ -537,10 +537,10 @@ export type SettingsQueryResult = {
   };
 } | null;
 // Variable: homeQuery
-// Query: *[_type == "home"][0]{    _id,    title,    slug,    "pageBuilder": pageBuilder[]{      _key,      _type,      _type == "callToAction" => {        heading,        text,        buttonText,        link {          ...,          _type == "link" => {            "page": page->slug.current,            "post": post->slug.current          }        }      },      _type == "infoSection" => {        heading,        subheading,        content      },      _type == "fullWidthImage" => {        image      }    }  }
+// Query: *[_type == "home"][0]{    _id,    title,    slug,    seo,    "pageBuilder": pageBuilder[]{      _key,      _type,      _type == "callToAction" => {        _key,        heading,        text,        buttonText,        link {          ...,          _type == "link" => {            "page": page->slug.current,            "post": post->slug.current          }        }      },      _type == "infoSection" => {        _key,        heading,        subheading,        content      },      _type == "fullWidthImage" => {        _key,        image      }    }  }
 export type HomeQueryResult = null;
 // Variable: getPageQuery
-// Query: *[_type == 'page' && slug.current == $slug][0]{    _id,    _type,    name,    slug,    heading,    subheading,    "pageBuilder": pageBuilder[]{      ...,      _type == "callToAction" => {          link {      ...,        _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }      },      },      _type == "infoSection" => {        content[]{          ...,          markDefs[]{            ...,              _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }          }        }      },    },  }
+// Query: *[_type == 'page' && slug.current == $slug][0]{    _id,    _type,    name,    slug,    heading,    subheading,    seo,    "pageBuilder": pageBuilder[]{      _key,      _type,      _type == "callToAction" => {        _key,          link {      ...,        _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }      },      },      _type == "infoSection" => {        _key,        heading,        subheading,        content[]{          ...,          markDefs[]{            ...,              _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }          }        }      },      _type == "fullWidthImage" => {        _key,        image      }    },  }
 export type GetPageQueryResult = {
   _id: string;
   _type: "page";
@@ -548,12 +548,10 @@ export type GetPageQueryResult = {
   slug: Slug;
   heading: string;
   subheading: string | null;
+  seo: null;
   pageBuilder: Array<{
     _key: string;
     _type: "callToAction";
-    heading: string;
-    text?: string;
-    buttonText?: string;
     link: {
       _type: "link";
       linkType?: "href" | "page" | "post";
@@ -565,8 +563,8 @@ export type GetPageQueryResult = {
   } | {
     _key: string;
     _type: "infoSection";
-    heading?: string;
-    subheading?: string;
+    heading: string | null;
+    subheading: string | null;
     content: Array<{
       children?: Array<{
         marks?: Array<string>;
@@ -760,8 +758,8 @@ import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     "*[_type == \"settings\"][0]": SettingsQueryResult;
-    "\n  *[_type == \"home\"][0]{\n    _id,\n    title,\n    slug,\n    \"pageBuilder\": pageBuilder[]{\n      _key,\n      _type,\n      _type == \"callToAction\" => {\n        heading,\n        text,\n        buttonText,\n        link {\n          ...,\n          _type == \"link\" => {\n            \"page\": page->slug.current,\n            \"post\": post->slug.current\n          }\n        }\n      },\n      _type == \"infoSection\" => {\n        heading,\n        subheading,\n        content\n      },\n      _type == \"fullWidthImage\" => {\n        image\n      }\n    }\n  }\n": HomeQueryResult;
-    "\n  *[_type == 'page' && slug.current == $slug][0]{\n    _id,\n    _type,\n    name,\n    slug,\n    heading,\n    subheading,\n    \"pageBuilder\": pageBuilder[]{\n      ...,\n      _type == \"callToAction\" => {\n        \n  link {\n      ...,\n      \n  _type == \"link\" => {\n    \"page\": page->slug.current,\n    \"post\": post->slug.current\n  }\n\n      }\n,\n      },\n      _type == \"infoSection\" => {\n        content[]{\n          ...,\n          markDefs[]{\n            ...,\n            \n  _type == \"link\" => {\n    \"page\": page->slug.current,\n    \"post\": post->slug.current\n  }\n\n          }\n        }\n      },\n    },\n  }\n": GetPageQueryResult;
+    "\n  *[_type == \"home\"][0]{\n    _id,\n    title,\n    slug,\n    seo,\n    \"pageBuilder\": pageBuilder[]{\n      _key,\n      _type,\n      _type == \"callToAction\" => {\n        _key,\n        heading,\n        text,\n        buttonText,\n        link {\n          ...,\n          _type == \"link\" => {\n            \"page\": page->slug.current,\n            \"post\": post->slug.current\n          }\n        }\n      },\n      _type == \"infoSection\" => {\n        _key,\n        heading,\n        subheading,\n        content\n      },\n      _type == \"fullWidthImage\" => {\n        _key,\n        image\n      }\n    }\n  }\n": HomeQueryResult;
+    "\n  *[_type == 'page' && slug.current == $slug][0]{\n    _id,\n    _type,\n    name,\n    slug,\n    heading,\n    subheading,\n    seo,\n    \"pageBuilder\": pageBuilder[]{\n      _key,\n      _type,\n      _type == \"callToAction\" => {\n        _key,\n        \n  link {\n      ...,\n      \n  _type == \"link\" => {\n    \"page\": page->slug.current,\n    \"post\": post->slug.current\n  }\n\n      }\n,\n      },\n      _type == \"infoSection\" => {\n        _key,\n        heading,\n        subheading,\n        content[]{\n          ...,\n          markDefs[]{\n            ...,\n            \n  _type == \"link\" => {\n    \"page\": page->slug.current,\n    \"post\": post->slug.current\n  }\n\n          }\n        }\n      },\n      _type == \"fullWidthImage\" => {\n        _key,\n        image\n      }\n    },\n  }\n": GetPageQueryResult;
     "\n  *[_type == \"page\" || _type == \"post\" && defined(slug.current)] | order(_type asc) {\n    \"slug\": slug.current,\n    _type,\n    _updatedAt,\n  }\n": SitemapDataResult;
     "\n  *[_type == \"post\" && defined(slug.current)] | order(date desc, _updatedAt desc) {\n    \n  _id,\n  \"status\": select(_originalId in path(\"drafts.**\") => \"draft\", \"published\"),\n  \"title\": coalesce(title, \"Untitled\"),\n  \"slug\": slug.current,\n  excerpt,\n  coverImage,\n  \"date\": coalesce(date, _updatedAt),\n  \"author\": author->{firstName, lastName, picture},\n\n  }\n": AllPostsQueryResult;
     "\n  *[_type == \"post\" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [0...$limit] {\n    \n  _id,\n  \"status\": select(_originalId in path(\"drafts.**\") => \"draft\", \"published\"),\n  \"title\": coalesce(title, \"Untitled\"),\n  \"slug\": slug.current,\n  excerpt,\n  coverImage,\n  \"date\": coalesce(date, _updatedAt),\n  \"author\": author->{firstName, lastName, picture},\n\n  }\n": MorePostsQueryResult;

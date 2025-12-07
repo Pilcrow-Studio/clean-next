@@ -4,7 +4,7 @@ import PortableText from '@/app/components/PortableText'
 import {InfoSection} from '@/sanity.types'
 
 type InfoProps = {
-  block: InfoSection
+  block: InfoSection & { _key?: string }
   index: number
   pageId?: string
   pageType?: string

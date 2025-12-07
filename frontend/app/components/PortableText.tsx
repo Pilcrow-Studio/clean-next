@@ -110,7 +110,7 @@ export default function CustomPortableText({
               quality={85}
             />
             {value.caption && (
-              <figcaption className="mt-2 text-center text-sm text-gray-600">
+              <figcaption className="mt-2 text-center text-xs font-mono uppercase text-gray-600">
                 {value.caption}
               </figcaption>
             )}

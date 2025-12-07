@@ -7,10 +7,12 @@ export const homeQuery = defineQuery(`
     _id,
     title,
     slug,
+    seo,
     "pageBuilder": pageBuilder[]{
       _key,
       _type,
       _type == "callToAction" => {
+        _key,
         heading,
         text,
         buttonText,
@@ -23,11 +25,13 @@ export const homeQuery = defineQuery(`
         }
       },
       _type == "infoSection" => {
+        _key,
         heading,
         subheading,
         content
       },
       _type == "fullWidthImage" => {
+        _key,
         image
       }
     }
@@ -67,12 +71,18 @@ export const getPageQuery = defineQuery(`
     slug,
     heading,
     subheading,
+    seo,
     "pageBuilder": pageBuilder[]{
-      ...,
+      _key,
+      _type,
       _type == "callToAction" => {
+        _key,
         ${linkFields},
       },
       _type == "infoSection" => {
+        _key,
+        heading,
+        subheading,
         content[]{
           ...,
           markDefs[]{
@@ -81,6 +91,10 @@ export const getPageQuery = defineQuery(`
           }
         }
       },
+      _type == "fullWidthImage" => {
+        _key,
+        image
+      }
     },
   }
 `)

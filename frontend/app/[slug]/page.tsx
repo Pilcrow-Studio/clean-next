@@ -6,6 +6,7 @@ import {sanityFetch} from '@/sanity/lib/live'
 import {getPageQuery, pagesSlugs} from '@/sanity/lib/queries'
 import {GetPageQueryResult} from '@/sanity.types'
 import {PageOnboarding} from '@/app/components/Onboarding'
+import {generateMetadataFromSeo} from '@/sanity/lib/utils'
 
 type Props = {
   params: Promise<{slug: string}>
@@ -38,10 +39,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     stega: false,
   })
 
-  return {
-    title: page?.name,
-    description: page?.heading,
-  } satisfies Metadata
+  return generateMetadataFromSeo(page?.seo, page?.name, page?.heading)
 }
 
 export default async function Page(props: Props) {

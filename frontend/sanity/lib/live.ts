@@ -1,16 +1,42 @@
-import {defineLive} from 'next-sanity/live'
+import {draftMode} from 'next/headers'
 import {client} from './client'
-import {token} from './token'
 
 /**
- * Use defineLive to enable automatic revalidation and refreshing of your fetched content
- * Learn more: https://github.com/sanity-io/next-sanity?tab=readme-ov-file#1-configure-definelive
+ * Regular sanityFetch without live preview to reduce serverless function costs
+ * Draft mode is still supported for content editors
  */
 
-export const {sanityFetch, SanityLive} = defineLive({
-  client,
-  // Required for showing draft content when the Sanity Presentation Tool is used, or to enable the Vercel Toolbar Edit Mode
-  serverToken: token,
-  // Required for stand-alone live previews, the token is only shared to the browser if it's a valid Next.js Draft Mode session
-  browserToken: token,
-})
+type SanityFetchParams = {
+  query: string
+  params?: Record<string, any>
+  stega?: boolean
+  perspective?: 'published' | 'previewDrafts'
+}
+
+export async function sanityFetch<T = any>({
+  query,
+  params = {},
+  stega,
+  perspective,
+}: SanityFetchParams): Promise<{data: T}> {
+  const {isEnabled: isDraftMode} = await draftMode()
+
+  // Use draft perspective in draft mode, otherwise use the specified perspective or default to published
+  const finalPerspective = isDraftMode ? 'previewDrafts' : (perspective || 'published')
+
+  const data = await client.fetch<T>(query, params, {
+    perspective: finalPerspective,
+    useCdn: !isDraftMode, // Don't use CDN in draft mode to get fresh content
+    stega: stega !== false && isDraftMode, // Enable stega only in draft mode unless explicitly disabled
+    next: {
+      revalidate: isDraftMode ? 0 : undefined, // No cache in draft mode
+    },
+  })
+
+  return {data}
+}
+
+// Dummy component for backwards compatibility (no longer needed)
+export function SanityLive() {
+  return null
+}

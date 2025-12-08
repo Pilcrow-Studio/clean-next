@@ -8,6 +8,9 @@ import {GetPageQueryResult} from '@/sanity.types'
 import {PageOnboarding} from '@/app/components/Onboarding'
 import {generateMetadataFromSeo} from '@/sanity/lib/utils'
 
+// Revalidate every hour (3600 seconds)
+export const revalidate = 3600
+
 type Props = {
   params: Promise<{slug: string}>
 }

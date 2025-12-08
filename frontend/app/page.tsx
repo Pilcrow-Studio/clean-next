@@ -4,6 +4,9 @@ import {homeQuery} from '@/sanity/lib/queries'
 import {sanityFetch} from '@/sanity/lib/live'
 import {generateMetadataFromSeo} from '@/sanity/lib/utils'
 
+// Revalidate every hour (3600 seconds)
+export const revalidate = 3600
+
 // Temporary type until home document is published in Sanity
 type HomeData = {
   _id: string

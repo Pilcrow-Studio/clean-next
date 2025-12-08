@@ -12,10 +12,9 @@ import DraftModeToast from '@/app/components/DraftModeToast'
 import Footer from '@/app/components/Footer'
 import Header from '@/app/components/Header'
 import * as demo from '@/sanity/lib/demo'
-import {sanityFetch, SanityLive} from '@/sanity/lib/live'
+import {sanityFetch} from '@/sanity/lib/live'
 import {settingsQuery} from '@/sanity/lib/queries'
 import {resolveOpenGraphImage} from '@/sanity/lib/utils'
-import {handleError} from './client-utils'
 
 /**
  * Generate metadata for the page.
@@ -76,8 +75,6 @@ export default async function RootLayout({children}: {children: React.ReactNode}
               </Suspense>
             </>
           )}
-          {/* The <SanityLive> component is responsible for making all sanityFetch calls in your application live, so should always be rendered. */}
-          <SanityLive onError={handleError} />
           <Header />
             <main className="">{children}</main>
         </section>

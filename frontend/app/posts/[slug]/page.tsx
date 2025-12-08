@@ -11,6 +11,9 @@ import {sanityFetch} from '@/sanity/lib/live'
 import {postPagesSlugs, postQuery} from '@/sanity/lib/queries'
 import {resolveOpenGraphImage} from '@/sanity/lib/utils'
 
+// Revalidate every hour (3600 seconds)
+export const revalidate = 3600
+
 type Props = {
   params: Promise<{slug: string}>
 }

@@ -19,14 +19,25 @@ export async function sanityFetch<T = any>({
   stega,
   perspective,
 }: SanityFetchParams): Promise<{data: T}> {
-  const {isEnabled: isDraftMode} = await draftMode()
+  // Only check draft mode if we're in a request context (not during static generation)
+  // If perspective is explicitly set, respect it without checking draftMode
+  let isDraftMode = false
+  let finalPerspective = perspective || 'published'
 
-  // Use draft perspective in draft mode, otherwise use the specified perspective or default to published
-  const finalPerspective = isDraftMode ? 'previewDrafts' : (perspective || 'published')
+  if (!perspective) {
+    try {
+      const draft = await draftMode()
+      isDraftMode = draft.isEnabled
+      finalPerspective = isDraftMode ? 'previewDrafts' : 'published'
+    } catch {
+      // We're in a static context (like generateStaticParams), use published perspective
+      finalPerspective = 'published'
+    }
+  }
 
   const data = await client.fetch<T>(query, params, {
     perspective: finalPerspective,
-    useCdn: !isDraftMode, // Don't use CDN in draft mode to get fresh content
+    useCdn: perspective === 'published' || !isDraftMode, // Use CDN for published content
     stega: stega !== false && isDraftMode, // Enable stega only in draft mode unless explicitly disabled
     next: {
       revalidate: isDraftMode ? 0 : undefined, // No cache in draft mode

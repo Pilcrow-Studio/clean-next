@@ -22,6 +22,7 @@ export interface ResponsiveImageProps {
   baseWidth?: number
   aspectRatio?: number
   fit?: 'max' | 'crop' | 'clip' | 'fill' | 'min' | 'scale'
+  decoding?: 'async' | 'sync' | 'auto'
 }
 
 export default function ResponsiveImage({
@@ -32,6 +33,7 @@ export default function ResponsiveImage({
   loading = 'lazy',
   fetchPriority = 'auto',
   className = '',
+  decoding = 'async',
   alt,
   style,
   usePixelDensity = false,

@@ -107,7 +107,8 @@ export default function CustomPortableText({
               alt={value.alt}
               className="w-full h-auto"
               sizes="(max-width: 768px) 500px, 768px"
-              quality={85}
+              quality={60}
+              fit="crop"
             />
             {value.caption && (
               <figcaption className="mt-2 text-center text-xs font-mono uppercase text-gray-600">

@@ -1,12 +1,12 @@
 import type {Metadata} from 'next'
 import Head from 'next/head'
-
-import PageBuilderPage from '@/app/components/PageBuilder'
+import PageBuilderPage from '@/app/components/pageBuilder/PageBuilder'
 import {sanityFetch} from '@/sanity/lib/live'
 import {getPageQuery, pagesSlugs} from '@/sanity/lib/queries'
 import {GetPageQueryResult} from '@/sanity.types'
 import {PageOnboarding} from '@/app/components/Onboarding'
 import {generateMetadataFromSeo} from '@/sanity/lib/utils'
+import NotFound from '../components/404'
 
 // Revalidate every hour (3600 seconds)
 export const revalidate = 3600
@@ -52,7 +52,7 @@ export default async function Page(props: Props) {
   if (!page?._id) {
     return (
       <div className="py-40">
-        <PageOnboarding />
+        <NotFound />
       </div>
     )
   }
@@ -76,7 +76,7 @@ export default async function Page(props: Props) {
           </div>
         </div>
       </div>
-      <PageBuilderPage page={page as GetPageQueryResult} />
+      <PageBuilderPage sections={page.pageBuilder} pageId={page._id} pageType="page" />
     </div>
   )
 }

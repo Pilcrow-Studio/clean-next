@@ -10,7 +10,7 @@ type SanityFetchParams = {
   query: string
   params?: Record<string, any>
   stega?: boolean
-  perspective?: 'published' | 'previewDrafts'
+  perspective?: 'published' | 'drafts'
 }
 
 export async function sanityFetch<T = any>({
@@ -28,7 +28,7 @@ export async function sanityFetch<T = any>({
     try {
       const draft = await draftMode()
       isDraftMode = draft.isEnabled
-      finalPerspective = isDraftMode ? 'previewDrafts' : 'published'
+      finalPerspective = isDraftMode ? 'drafts' : 'published'
     } catch {
       // We're in a static context (like generateStaticParams), use published perspective
       finalPerspective = 'published'

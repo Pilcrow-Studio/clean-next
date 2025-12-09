@@ -19,6 +19,9 @@ export default function FullWidthImage({image}: FullWidthImageProps) {
           className="w-full h-full object-cover"
           sizes="100vw"
           aspectRatio={16/9}
+          loading="eager"
+          fetchPriority="high"
+          quality={70}
           fit="crop"
         />
       </div>

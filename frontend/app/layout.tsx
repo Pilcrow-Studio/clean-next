@@ -61,6 +61,7 @@ export default async function RootLayout({children}: {children: React.ReactNode}
   const {isEnabled: isDraftMode} = await draftMode()
 
   return (
+    
     <html lang="en" className={`${inter.variable} bg-white text-black`}>
       <body>
         <section className="min-h-screen pt-24" suppressHydrationWarning>
@@ -81,5 +82,6 @@ export default async function RootLayout({children}: {children: React.ReactNode}
       </body>
       <SpeedInsights />
     </html>
+    
   )
 }

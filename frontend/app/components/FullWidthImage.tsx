@@ -21,6 +21,8 @@ export default function FullWidthImage({block}: FullWidthImageProps) {
         sizes="100vw"
         quality={80}
         usePixelDensity={true}
+        loading="eager"
+        fetchPriority="high"
         baseWidth={720}
         aspectRatio={16/9}
         fit="crop"

@@ -9,6 +9,8 @@ import {blockContent} from './objects/blockContent'
 import {fullWidthImage} from './objects/fullWidthImage'
 import {home} from './singletons/home'
 import {seoType} from './settings/seo'
+import {navigationType} from './singletons/navigation'
+import {footerType} from './singletons/footer'
 
 // Export an array of all the schema types.  This is used in the Sanity Studio configuration. https://www.sanity.io/docs/schema-types
 
@@ -27,4 +29,7 @@ export const schemaTypes = [
   link,
   fullWidthImage,
   seoType,
+  //navigation
+  navigationType,
+  footerType,
 ]

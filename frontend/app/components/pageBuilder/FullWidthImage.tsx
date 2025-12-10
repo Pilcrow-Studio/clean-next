@@ -1,4 +1,4 @@
-import ResponsiveImage from '../ResponsiveImage'
+import ResponsiveImage from '../ui/ResponsiveImage'
 
 interface FullWidthImageProps {
   image?: {

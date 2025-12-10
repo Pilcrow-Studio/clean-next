@@ -1,5 +1,6 @@
 import {Suspense} from 'react'
-import ResolvedLink from '../ResolvedLink'
+import ResolvedLink from '../utils/ResolvedLink'
+import MainButton from '../ui/MainButton'
 
 interface CallToActionProps {
   _type?: string
@@ -35,12 +36,9 @@ export default function CallToAction(props: CallToActionProps) {
         )}
         {buttonText && link && (
           <Suspense fallback={null}>
-            <ResolvedLink
-              link={link}
-              className="inline-block bg-black text-white px-8 py-3 rounded-lg hover:bg-gray-800 transition-colors font-medium"
-            >
+            <MainButton link={link} variant="primary" size="md" fullWidth={false}>
               {buttonText}
-            </ResolvedLink>
+            </MainButton>
           </Suspense>
         )}
       </div>

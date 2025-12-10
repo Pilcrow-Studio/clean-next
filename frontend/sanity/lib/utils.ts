@@ -114,14 +114,17 @@ export function generateMetadataFromSeo(
 ): Metadata {
   const metadata: Metadata = {}
 
+  // Title
   if (seo?.title || fallbackTitle) {
     metadata.title = seo?.title || fallbackTitle
   }
 
+  // Description
   if (seo?.description || fallbackDescription) {
     metadata.description = seo?.description || fallbackDescription
   }
 
+  // Robots directives
   if (seo?.hideFromSearchEngines) {
     metadata.robots = {
       index: false,
@@ -129,18 +132,33 @@ export function generateMetadataFromSeo(
     }
   }
 
+  // Canonical URL
   if (seo?.canonicalUrl) {
     metadata.alternates = {
       canonical: seo.canonicalUrl,
     }
   }
 
+  // Open Graph and Twitter Cards
   if (seo?.openGraph) {
     const ogImage = seo.openGraph.image ? resolveOpenGraphImage(seo.openGraph.image) : undefined
+    const ogTitle = seo.openGraph.title || seo?.title || fallbackTitle
+    const ogDescription = seo.openGraph.description || seo?.description || fallbackDescription
+
     metadata.openGraph = {
-      title: seo.openGraph.title || seo?.title || fallbackTitle,
-      description: seo.openGraph.description || seo?.description || fallbackDescription,
+      title: ogTitle,
+      description: ogDescription,
       images: ogImage ? [ogImage] : [],
+      type: 'website',
+      locale: 'en_US',
+    }
+
+    // Twitter Cards (uses Open Graph data as fallback)
+    metadata.twitter = {
+      card: 'summary_large_image',
+      title: ogTitle,
+      description: ogDescription,
+      images: ogImage ? [ogImage.url] : [],
     }
   }
 

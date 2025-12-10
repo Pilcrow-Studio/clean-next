@@ -86,6 +86,7 @@ export const page = defineType({
       title: 'name',
       slug: 'slug.current',
       image: 'seo.openGraph.image',
+      updatedAt: '_updatedAt',
     },
     prepare(selection) {
       return {

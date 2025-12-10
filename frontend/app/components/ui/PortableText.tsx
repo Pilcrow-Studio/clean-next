@@ -11,7 +11,7 @@
 import {PortableText, type PortableTextComponents, type PortableTextBlock} from 'next-sanity'
 import '@/app/styles/portable-text.css'
 
-import ResolvedLink from '@/app/components/ResolvedLink'
+import ResolvedLink from '@/app/components/utils/ResolvedLink'
 import ResponsiveImage from './ResponsiveImage'
 import {dataAttr} from '@/sanity/lib/utils'
 

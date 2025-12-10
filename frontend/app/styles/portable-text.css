@@ -72,8 +72,8 @@
 /* Blockquotes - Distinctive styling */
 .portable-text blockquote {
   @apply my-6 px-6 py-4;
-  @apply border-l-4 border-gray-300 dark:border-gray-600;
-  @apply bg-gray-50 dark:bg-gray-900;
+  @apply border-l-4 border-gray-300 ;
+  @apply bg-gray-50 ;
   @apply italic text-lg;
   @apply rounded-r-md;
 }

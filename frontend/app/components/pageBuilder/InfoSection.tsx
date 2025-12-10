@@ -1,5 +1,5 @@
 import {type PortableTextBlock} from 'next-sanity'
-import PortableText from '../PortableText'
+import PortableText from '../ui/PortableText'
 
 interface InfoSectionProps {
   heading?: string
@@ -22,7 +22,7 @@ export default function InfoSection(props: InfoSectionProps) {
   const { pageId, pageType } = props
 
   return (
-    <section className="py-16 md:py-24 bg-gray-50">
+    <section className="py-16 md:py-24">
       <div className="container mx-auto max-w-4xl px-4">
         {subheading && (
           <p className="text-sm uppercase tracking-wide text-gray-500 mb-2 font-medium">

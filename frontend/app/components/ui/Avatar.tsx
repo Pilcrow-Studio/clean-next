@@ -1,5 +1,5 @@
 import ResponsiveImage from './ResponsiveImage'
-import DateComponent from '@/app/components/Date'
+import DateComponent from '@/app/components/utils/Date'
 
 type Props = {
   person: {

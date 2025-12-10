@@ -2,12 +2,61 @@ import {defineQuery} from 'next-sanity'
 
 export const settingsQuery = defineQuery(`*[_type == "settings"][0]`)
 
+export const navigationQuery = defineQuery(`
+  *[_type == "navigation"][0]{
+    _id,
+    logo {
+      asset,
+      alt
+    },
+    items[] {
+      text,
+      "slug": page->slug.current
+    }
+  }
+`)
+
+export const footerQuery = defineQuery(`
+  *[_type == "footer"][0]{
+    _id,
+    logo {
+      asset,
+      alt
+    },
+    companyName,
+    linkColumns[] {
+      title,
+      links[] {
+        text,
+        "slug": page->slug.current
+      }
+    },
+    infoLinks[] {
+      text,
+      "slug": page->slug.current
+    }
+  }
+`)
+
 export const homeQuery = defineQuery(`
   *[_type == "home"][0]{
     _id,
     title,
     slug,
-    seo,
+    seo {
+      title,
+      description,
+      hideFromSearchEngines,
+      canonicalUrl,
+      openGraph {
+        title,
+        description,
+        image {
+          asset,
+          alt
+        }
+      }
+    },
     "pageBuilder": pageBuilder[]{
       _key,
       _type,

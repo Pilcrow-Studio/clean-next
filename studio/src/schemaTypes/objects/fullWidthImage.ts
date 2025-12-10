@@ -34,6 +34,7 @@ export const fullWidthImage = defineType({
       return {
         title: selection.image?.alt,
         media: selection.image,
+        subtitle: 'Full Width Image Section',
       }
     },
   },

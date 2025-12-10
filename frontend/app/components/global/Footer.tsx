@@ -1,25 +1,128 @@
-export default function Footer() {
+import Link from 'next/link'
+import {footerQuery} from '@/sanity/lib/queries'
+import {sanityFetch} from '@/sanity/lib/live'
+import ResponsiveImage from '../ui/ResponsiveImage'
+
+type Footer = {
+  _id: string
+  logo?: {
+    asset?: any
+    alt?: string
+  }
+  companyName?: string
+  linkColumns?: Array<{
+    title?: string
+    links?: Array<{
+      text?: string
+      slug?: string
+    }>
+  }>
+  infoLinks?: Array<{
+    text?: string
+    slug?: string
+  }>
+}
+
+export default async function Footer() {
+  const {data: footer} = await sanityFetch<Footer | null>({
+    query: footerQuery,
+  })
+
+  if (!footer) {
+    return null
+  }
+
   return (
-    <footer className="bg-gray-50 relative">
-      <div className="absolute inset-0 bg-[url(/images/tile-grid-black.png)] bg-size-[17px] opacity-20 bg-position-[0_1]" />
-      <div className="container relative">
-        <div className="flex flex-col items-center py-28 lg:flex-row">
-          <h3 className="mb-10 text-center text-4xl font-mono leading-tight tracking-tighter lg:mb-0 lg:w-1/2 lg:pr-4 lg:text-left lg:text-2xl">
-            Built with Sanity + Next.js.
-          </h3>
-          <div className="flex flex-col gap-3 items-center justify-center lg:w-1/2 lg:flex-row lg:pl-4">
-            <a
-              href="https://github.com/sanity-io/sanity-template-nextjs-clean"
-              className="rounded-full flex gap-2 font-mono whitespace-nowrap items-center bg-black hover:bg-blue focus:bg-blue py-3 px-6 text-white transition-colors duration-200"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              View on GitHub
-            </a>
-            <a href="https://nextjs.org/docs" className="mx-3 hover:underline font-mono">
-              Read Next.js Documentation
-            </a>
+    <footer className="bg-gray-50 border-t border-gray-200">
+      <div className="container py-12 md:py-16">
+        {/* Top Section: Logo and Link Columns */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mb-8">
+          {/* Logo and Company Name */}
+          <div className="md:col-span-4">
+            <Link href="/" className="inline-block mb-4">
+              {footer.logo?.asset ? (
+                <ResponsiveImage
+                  image={footer.logo}
+                  alt={footer.logo.alt || footer.companyName || 'Logo'}
+                  className="h-8 w-auto"
+                  sizes="150px"
+                  quality={90}
+                />
+              ) : (
+                <span className="text-xl font-bold">{footer.companyName}</span>
+              )}
+            </Link>
+            {footer.companyName && footer.logo?.asset && (
+              <p className="text-sm text-gray-600">{footer.companyName}</p>
+            )}
           </div>
+
+          {/* Link Columns */}
+          {footer.linkColumns && footer.linkColumns.length > 0 && (
+            <div className="md:col-span-8 grid grid-cols-2 md:grid-cols-3 gap-8">
+              {footer.linkColumns.map((column, columnIndex) => {
+                if (!column?.title) return null
+
+                return (
+                  <div key={columnIndex}>
+                    <h3 className="font-semibold text-sm uppercase tracking-wide text-gray-900 mb-4">
+                      {column.title}
+                    </h3>
+                    {column.links && column.links.length > 0 && (
+                      <ul className="space-y-3">
+                        {column.links.map((link, linkIndex) => {
+                          if (!link?.slug || !link?.text) return null
+
+                          // Handle home page specially
+                          const href = link.slug === 'home' || link.slug === '/' ? '/' : `/${link.slug}`
+
+                          return (
+                            <li key={linkIndex}>
+                              <Link
+                                href={href}
+                                className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                              >
+                                {link.text}
+                              </Link>
+                            </li>
+                          )
+                        })}
+                      </ul>
+                    )}
+                  </div>
+                )
+              })}
+            </div>
+          )}
+        </div>
+
+        {/* Bottom Section: Copyright and Info Links */}
+        <div className="pt-8 border-t border-gray-200 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-sm text-gray-600">
+            © {new Date().getFullYear()} {footer.companyName}. All rights reserved.
+          </p>
+
+          {footer.infoLinks && footer.infoLinks.length > 0 && (
+            <ul className="flex flex-wrap gap-6">
+              {footer.infoLinks.map((link, index) => {
+                if (!link?.slug || !link?.text) return null
+
+                // Handle home page specially
+                const href = link.slug === 'home' || link.slug === '/' ? '/' : `/${link.slug}`
+
+                return (
+                  <li key={index}>
+                    <Link
+                      href={href}
+                      className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                    >
+                      {link.text}
+                    </Link>
+                  </li>
+                )
+              })}
+            </ul>
+          )}
         </div>
       </div>
     </footer>

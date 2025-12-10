@@ -1,4 +1,4 @@
-import './globals.css'
+import './styles/globals.css'
 
 import {SpeedInsights} from '@vercel/speed-insights/next'
 import type {Metadata} from 'next'
@@ -9,8 +9,8 @@ import { VisualEditing } from 'next-sanity/visual-editing'
 import {Suspense} from 'react'
 import {Toaster} from 'sonner'
 import DraftModeToast from '@/app/components/DraftModeToast'
-import Footer from '@/app/components/Footer'
-import Header from '@/app/components/Header'
+import Footer from '@/app/components/global/Footer'
+import Header from '@/app/components/global/Header'
 import * as demo from '@/sanity/lib/demo'
 import {sanityFetch} from '@/sanity/lib/live'
 import {settingsQuery} from '@/sanity/lib/queries'
@@ -64,7 +64,8 @@ export default async function RootLayout({children}: {children: React.ReactNode}
     
     <html lang="en" className={`${inter.variable} bg-white text-black`}>
       <body>
-        <section className="min-h-screen pt-24" suppressHydrationWarning>
+      <Header />
+        <div className="min-h-screen pt-24" suppressHydrationWarning>
           {/* The <Toaster> component is responsible for rendering toast notifications used in /app/client-utils.ts and /app/components/DraftModeToast.tsx */}
           <Toaster />
           {isDraftMode && (
@@ -76,9 +77,8 @@ export default async function RootLayout({children}: {children: React.ReactNode}
               </Suspense>
             </>
           )}
-          <Header />
-            <main className="">{children}</main>
-        </section>
+          <main className="page-wrapper">{children}</main>
+        </div>
       </body>
       <SpeedInsights />
     </html>

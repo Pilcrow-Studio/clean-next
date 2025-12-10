@@ -1,8 +1,8 @@
 import React from 'react'
 
-import Cta from '@/app/components/Cta'
-import Info from '@/app/components/InfoSection'
-import FullWidthImage from '@/app/components/FullWidthImage'
+import Cta from '@/app/components/pageBuilder/CallToAction'
+import Info from '@/app/components/pageBuilder/InfoSection'
+import FullWidthImage from '@/app/components/pageBuilder/FullWidthImage'
 import {dataAttr} from '@/sanity/lib/utils'
 
 type BlocksType = {

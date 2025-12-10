@@ -77,6 +77,9 @@ export const getPageQuery = defineQuery(`
       _type,
       _type == "callToAction" => {
         _key,
+        heading,
+        text,
+        buttonText,
         ${linkFields},
       },
       _type == "infoSection" => {

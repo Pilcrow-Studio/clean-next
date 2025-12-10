@@ -6,22 +6,43 @@ interface FullWidthImageProps {
     alt?: string
     _type?: string
   }
+  alt?: string
+  _type?: string
+  _key?: string
+  block?: {
+    image?: {
+      asset?: any
+      alt?: string
+      _type?: string
+    }
+    alt?: string
+  }
 }
 
-export default function FullWidthImage({image}: FullWidthImageProps) {
-  if (!image?.asset) return null
+export default function FullWidthImage(props: FullWidthImageProps) {
+  // Support both direct props and block prop patterns
+  const { image, alt } = props.block || props
+
+  // Handle both direct image prop and nested structure
+  const imageData = image?.asset ? image : null
+  const altText = alt || image?.alt || ''
+
+  if (!imageData) return null
 
   return (
     <section className="w-full">
       <div className="relative w-full aspect-video">
         <ResponsiveImage
-          image={image}
+          image={imageData}
+          alt={altText}
           className="w-full h-full object-cover"
           sizes="100vw"
-          aspectRatio={16/9}
+          quality={80}
+          usePixelDensity={true}
           loading="eager"
           fetchPriority="high"
-          quality={70}
+          baseWidth={720}
+          aspectRatio={16/9}
           fit="crop"
         />
       </div>

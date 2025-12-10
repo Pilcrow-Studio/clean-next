@@ -61,7 +61,7 @@ export function resolveOpenGraphImage(image: any, width = 1200, height = 627) {
 }
 
 // Depending on the type of link, we need to fetch the corresponding page, post, or URL.  Otherwise return null.
-export function linkResolver(link: Link | undefined) {
+export function linkResolver(link: Link | undefined | any) {
   if (!link) return null
 
   // If linkType is not set but href is, lets set linkType to "href".  This comes into play when pasting links into the portable text editor because a link type is not assumed.
@@ -73,13 +73,24 @@ export function linkResolver(link: Link | undefined) {
     case 'href':
       return link.href || null
     case 'page':
-      if (link?.page && typeof link.page === 'string') {
-        return `/${link.page}`
+      // After GROQ query projection, page is a string (slug.current), not a reference object
+      const pageSlug = link?.page as string | undefined
+      if (pageSlug && typeof pageSlug === 'string') {
+        // Handle home page specially
+        if (pageSlug === 'home' || pageSlug === '/') {
+          return '/'
+        }
+        // For other pages, prepend / if needed
+        return pageSlug.startsWith('/') ? pageSlug : `/${pageSlug}`
       }
+      return null
     case 'post':
-      if (link?.post && typeof link.post === 'string') {
-        return `/posts/${link.post}`
+      // After GROQ query projection, post is a string (slug.current), not a reference object
+      const postSlug = link?.post as string | undefined
+      if (postSlug && typeof postSlug === 'string') {
+        return `/posts/${postSlug}`
       }
+      return null
     default:
       return null
   }

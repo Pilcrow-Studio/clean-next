@@ -1,5 +1,6 @@
 import {defineArrayMember, defineType, defineField} from 'sanity'
-
+import SuperscriptIcon from '../icons/SuperscriptIcon'
+import SubscriptIcon from '../icons/SubscriptIcon'
 /**
  * This is the schema definition for the rich text fields used for
  * for this blog studio. When you import it in schemas.js it can be
@@ -19,7 +20,40 @@ export const blockContent = defineType({
   of: [
     defineArrayMember({
       type: 'block',
+      styles: [
+        {title: 'Normal', value: 'normal'},
+        {title: 'H1', value: 'h1'},
+        {title: 'H2', value: 'h2'},
+        {title: 'H3', value: 'h3'},
+        {title: 'H4', value: 'h4'},
+        {title: 'H5', value: 'h5'},
+        {title: 'H6', value: 'h6'},
+        {title: 'Quote', value: 'blockquote'},
+        {title: 'Paragraph', value: 'paragraph'},
+      ],
+      lists: [
+        {title: 'Bullet', value: 'bullet'},
+        {title: 'Numbered', value: 'number'},
+      ],
       marks: {
+        decorators: [
+          {title: 'Strong', value: 'strong'},
+          {title: 'Emphasis', value: 'em'},
+          {title: 'Underline', value: 'underline'},
+          {title: 'Strike', value: 'strike-through'},
+          {
+            title: 'Superscript',
+            value: 'sup',
+            icon: SuperscriptIcon,
+            component: (props: any) => <sup>{props.children}</sup>,
+          },
+          {
+            title: 'Subscript',
+            value: 'sub',
+            icon: SubscriptIcon,
+            component: (props: any) => <sub>{props.children}</sub>,
+          },
+        ],
         annotations: [
           {
             name: 'link',
@@ -57,7 +91,7 @@ export const blockContent = defineType({
                 name: 'page',
                 title: 'Page',
                 type: 'reference',
-                to: [{type: 'page'}],
+                to: [{type: 'page'}, {type: 'home'}],
                 hidden: ({parent}) => parent?.linkType !== 'page',
                 validation: (Rule) =>
                   Rule.custom((value, context: any) => {

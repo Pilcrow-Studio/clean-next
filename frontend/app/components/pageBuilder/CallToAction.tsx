@@ -1,4 +1,5 @@
-import Link from 'next/link'
+import {Suspense} from 'react'
+import ResolvedLink from '../ResolvedLink'
 
 interface CallToActionProps {
   _type?: string
@@ -6,18 +7,20 @@ interface CallToActionProps {
   heading?: string
   text?: string
   buttonText?: string
-  link?: {
-    _type: string
-    page?: string
-    post?: string
-    href?: string
-  } | null
+  link?: any
   pageId?: string
   pageType?: string
+  block?: {
+    heading?: string
+    text?: string
+    buttonText?: string
+    link?: any
+  }
 }
 
-export default function CallToAction({ heading, text, buttonText, link }: CallToActionProps) {
-  const href = link?.page ? `/${link.page}` : link?.post ? `/posts/${link.post}` : link?.href || '#'
+export default function CallToAction(props: CallToActionProps) {
+  // Support both direct props and block prop patterns
+  const { heading, text, buttonText, link } = props.block || props
 
   return (
     <section className="py-16 md:py-24">
@@ -31,12 +34,14 @@ export default function CallToAction({ heading, text, buttonText, link }: CallTo
           </p>
         )}
         {buttonText && link && (
-          <Link
-            href={href}
-            className="inline-block bg-black text-white px-8 py-3 rounded-lg hover:bg-gray-800 transition-colors font-medium"
-          >
-            {buttonText}
-          </Link>
+          <Suspense fallback={null}>
+            <ResolvedLink
+              link={link}
+              className="inline-block bg-black text-white px-8 py-3 rounded-lg hover:bg-gray-800 transition-colors font-medium"
+            >
+              {buttonText}
+            </ResolvedLink>
+          </Suspense>
         )}
       </div>
     </section>

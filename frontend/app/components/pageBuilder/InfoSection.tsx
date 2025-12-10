@@ -8,16 +8,19 @@ interface InfoSectionProps {
   _key?: string
   pageId?: string
   pageType?: string
+  block?: {
+    heading?: string
+    subheading?: string
+    content?: any
+    _key?: string
+  }
 }
 
-export default function InfoSection({
-  heading,
-  subheading,
-  content,
-  _key,
-  pageId,
-  pageType,
-}: InfoSectionProps) {
+export default function InfoSection(props: InfoSectionProps) {
+  // Support both direct props and block prop patterns
+  const { heading, subheading, content, _key } = props.block || props
+  const { pageId, pageType } = props
+
   return (
     <section className="py-16 md:py-24 bg-gray-50">
       <div className="container mx-auto max-w-4xl px-4">

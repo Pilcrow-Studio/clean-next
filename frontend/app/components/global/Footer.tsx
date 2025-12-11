@@ -33,7 +33,7 @@ export default async function Footer() {
   }
 
   return (
-    <footer className="bg-gray-50 border-t border-gray-200">
+    <footer className="bg-gray-50 border-t border-gray-200 dark:bg-gray-900 dark:border-gray-800 ">
       <div className="container py-12 md:py-16">
         {/* Top Section: Logo and Link Columns */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mb-8">
@@ -53,7 +53,7 @@ export default async function Footer() {
               )}
             </Link>
             {footer.companyName && footer.logo?.asset && (
-              <p className="text-sm text-gray-600">{footer.companyName}</p>
+              <p className="text-sm">{footer.companyName}</p>
             )}
           </div>
 
@@ -65,7 +65,7 @@ export default async function Footer() {
 
                 return (
                   <div key={columnIndex}>
-                    <h3 className="font-semibold text-sm uppercase tracking-wide text-gray-900 mb-4">
+                    <h3 className="font-semibold text-sm uppercase tracking-wide mb-4">
                       {column.title}
                     </h3>
                     {column.links && column.links.length > 0 && (
@@ -80,7 +80,7 @@ export default async function Footer() {
                             <li key={linkIndex}>
                               <Link
                                 href={href}
-                                className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                                className="text-sm transition-colors"
                               >
                                 {link.text}
                               </Link>
@@ -98,7 +98,7 @@ export default async function Footer() {
 
         {/* Bottom Section: Copyright and Info Links */}
         <div className="pt-8 border-t border-gray-200 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-gray-600">
+          <p className="text-sm">
             © {new Date().getFullYear()} {footer.companyName}. All rights reserved.
           </p>
 
@@ -114,7 +114,7 @@ export default async function Footer() {
                   <li key={index}>
                     <Link
                       href={href}
-                      className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                      className="text-sm transition-colors"
                     >
                       {link.text}
                     </Link>

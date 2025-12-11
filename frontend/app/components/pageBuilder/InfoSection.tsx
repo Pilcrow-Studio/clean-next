@@ -25,7 +25,7 @@ export default function InfoSection(props: InfoSectionProps) {
     <section className="py-16 md:py-24">
       <div className="container mx-auto max-w-4xl px-4">
         {subheading && (
-          <p className="text-sm uppercase tracking-wide text-gray-500 mb-2 font-medium">
+          <p className="text-sm uppercase tracking-wide mb-2 font-medium">
             {subheading}
           </p>
         )}
@@ -35,7 +35,7 @@ export default function InfoSection(props: InfoSectionProps) {
           </h2>
         )}
         {content && (
-          <div className="prose prose-lg max-w-none">
+          <div>
             <PortableText
               value={content as PortableTextBlock[]}
               documentId={pageId}

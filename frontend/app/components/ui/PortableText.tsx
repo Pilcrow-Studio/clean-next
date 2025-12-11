@@ -80,7 +80,7 @@ export default function CustomPortableText({
               fit="max"
             />
             {value.caption && (
-              <figcaption className="mt-2 text-center text-xs font-mono uppercase text-gray-600">
+              <figcaption className="mt-2 text-center text-xs font-mono uppercase">
                 {value.caption}
               </figcaption>
             )}
@@ -91,7 +91,7 @@ export default function CustomPortableText({
   }
 
   return (
-    <div className={['portable-text prose prose-a:text-brand', className].filter(Boolean).join(' ')}>
+    <div className={['portable-text', className].filter(Boolean).join(' ')}>
       <PortableText components={components} value={value} />
     </div>
   )

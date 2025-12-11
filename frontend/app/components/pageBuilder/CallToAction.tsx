@@ -30,7 +30,7 @@ export default function CallToAction(props: CallToActionProps) {
           {heading}
         </h2>
         {text && (
-          <p className="text-lg md:text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto">
             {text}
           </p>
         )}

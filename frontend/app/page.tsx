@@ -51,10 +51,12 @@ export default async function Page() {
 
   const homeData = home as unknown as HomeData
   return (
-    <PageBuilder
-      sections={homeData.pageBuilder}
-      pageId={homeData._id}
-      pageType="home"
-    />
+    <div>
+      <PageBuilder
+        sections={homeData.pageBuilder}
+        pageId={homeData._id}
+        pageType="home"
+      />
+    </div>
   )
 }

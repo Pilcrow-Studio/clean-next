@@ -38,10 +38,10 @@ export default function FullWidthImage(props: FullWidthImageProps) {
           className="w-full h-full object-cover"
           sizes="100vw"
           quality={80}
-          usePixelDensity={true}
           loading="eager"
+          usePixelDensity={true}
+          baseWidth={560}
           fetchPriority="high"
-          baseWidth={720}
           aspectRatio={16/9}
           fit="crop"
         />

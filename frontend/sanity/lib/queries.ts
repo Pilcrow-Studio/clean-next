@@ -11,7 +11,12 @@ export const navigationQuery = defineQuery(`
     },
     items[] {
       text,
-      "slug": page->slug.current
+      linkType,
+      "slug": page->slug.current,
+      dropdownItems[] {
+        text,
+        "slug": page->slug.current
+      }
     }
   }
 `)

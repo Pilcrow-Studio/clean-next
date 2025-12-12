@@ -36,7 +36,7 @@ export default async function Footer() {
     <footer className="bg-gray-50 border-t border-gray-200 dark:bg-gray-900 dark:border-gray-800 ">
       <div className="container py-12 md:py-16">
         {/* Top Section: Logo and Link Columns */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mb-8">
+        <div className="flex flex-wrap justify-between gap-8 mb-8">
           {/* Logo and Company Name */}
           <div className="md:col-span-4">
             <Link href="/" className="inline-block mb-4">
@@ -59,7 +59,7 @@ export default async function Footer() {
 
           {/* Link Columns */}
           {footer.linkColumns && footer.linkColumns.length > 0 && (
-            <div className="md:col-span-8 grid grid-cols-2 md:grid-cols-3 gap-8">
+            <div className="md:col-span-8 flex flex-wrap gap-8">
               {footer.linkColumns.map((column, columnIndex) => {
                 if (!column?.title) return null
 

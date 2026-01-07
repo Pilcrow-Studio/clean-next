@@ -24,13 +24,15 @@ type Footer = {
 }
 
 export default async function Footer() {
-  const {data: footer} = await sanityFetch({
+  const {data} = await sanityFetch({
     query: footerQuery,
   })
 
-  if (!footer) {
+  if (!data) {
     return null
   }
+
+  const footer = data as Footer
 
   return (
     <footer className="bg-gray-50 border-t border-gray-200 dark:bg-gray-900 dark:border-gray-800 ">

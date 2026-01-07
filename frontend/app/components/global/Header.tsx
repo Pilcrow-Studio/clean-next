@@ -25,9 +25,11 @@ type Navigation = {
 }
 
 export default async function Header() {
-  const {data: navigation} = await sanityFetch({
+  const {data} = await sanityFetch({
     query: navigationQuery,
   })
+
+  const navigation = data as Navigation | null
 
   return (
     <header className="fixed z-50 h-(--nav-height) inset-0 bg-white/80 dark:bg-black/80 flex items-center backdrop-blur-lg">

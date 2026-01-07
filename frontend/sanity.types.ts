@@ -483,60 +483,11 @@ export declare const internalGroqTypeReferenceTo: unique symbol;
 
 // Source: sanity/lib/queries.ts
 // Variable: settingsQuery
-// Query: *[_type == "settings"][0]
+// Query: *[_type == "settings"][0]{    _id,    logo {      asset->{        url,        extension,        mimeType      },      alt    },    title  }
 export type SettingsQueryResult = {
   _id: string;
-  _type: "settings";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
+  logo: null;
   title: string;
-  description?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal";
-    listItem?: never;
-    markDefs?: Array<{
-      linkType?: "href" | "page" | "post";
-      href?: string;
-      page?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "page";
-      };
-      post?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "post";
-      };
-      openInNewTab?: boolean;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }>;
-  ogImage?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt?: string;
-    metadataBase?: string;
-    _type: "image";
-  };
 } | null;
 
 // Source: sanity/lib/queries.ts
@@ -545,13 +496,18 @@ export type SettingsQueryResult = {
 export type NavigationQueryResult = null;
 
 // Source: sanity/lib/queries.ts
+// Variable: homeHeroQuery
+// Query: *[_type == "homeHero"][0]{    _id,    heading,    content  }
+export type HomeHeroQueryResult = null;
+
+// Source: sanity/lib/queries.ts
 // Variable: footerQuery
 // Query: *[_type == "footer"][0]{    _id,    logo {      asset,      alt    },    companyName,    linkColumns[] {      title,      links[] {        text,        "slug": page->slug.current      }    },    infoLinks[] {      text,      "slug": page->slug.current    }  }
 export type FooterQueryResult = null;
 
 // Source: sanity/lib/queries.ts
 // Variable: homeQuery
-// Query: *[_type == "home"][0]{    _id,    title,    slug,    seo {      title,      description,      hideFromSearchEngines,      canonicalUrl,      openGraph {        title,        description,        image {          asset,          alt        }      }    },    "pageBuilder": pageBuilder[]{      _key,      _type,      _type == "callToAction" => {        _key,        heading,        text,        buttonText,        link {          ...,          _type == "link" => {            "page": page->slug.current,            "post": post->slug.current          }        }      },      _type == "infoSection" => {        _key,        heading,        subheading,        content      },      _type == "fullWidthImage" => {        _key,        image      }    }  }
+// Query: *[_type == "home"][0]{    _id,    title,    slug,    seo {      title,      description,      hideFromSearchEngines,      canonicalUrl,      openGraph {        title,        description,        image {          asset,          alt        }      }    },    "pageBuilder": pageBuilder[]{      _key,      _type,      _type == "callToAction" => {        _key,        heading,        text,        buttonText,        link {          ...,          _type == "link" => {            "page": page->slug.current,            "post": post->slug.current          }        }      },      _type == "infoSection" => {        _key,        heading,        subheading,        content      },      _type == "fullWidthImage" => {        _key,        image      },      _type == "homeHero" => {        _key,        heading,        content      }    }  }
 export type HomeQueryResult = null;
 
 // Source: sanity/lib/queries.ts
@@ -788,10 +744,11 @@ export type PagesSlugsResult = Array<{
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "*[_type == \"settings\"][0]": SettingsQueryResult;
+    "\n  *[_type == \"settings\"][0]{\n    _id,\n    logo {\n      asset->{\n        url,\n        extension,\n        mimeType\n      },\n      alt\n    },\n    title\n  }\n": SettingsQueryResult;
     "\n  *[_type == \"navigation\"][0]{\n    _id,\n    logo {\n      asset,\n      alt\n    },\n    items[] {\n      text,\n      linkType,\n      \"slug\": page->slug.current,\n      dropdownItems[] {\n        text,\n        \"slug\": page->slug.current\n      }\n    }\n  }\n": NavigationQueryResult;
+    "\n  *[_type == \"homeHero\"][0]{\n    _id,\n    heading,\n    content\n  }\n": HomeHeroQueryResult;
     "\n  *[_type == \"footer\"][0]{\n    _id,\n    logo {\n      asset,\n      alt\n    },\n    companyName,\n    linkColumns[] {\n      title,\n      links[] {\n        text,\n        \"slug\": page->slug.current\n      }\n    },\n    infoLinks[] {\n      text,\n      \"slug\": page->slug.current\n    }\n  }\n": FooterQueryResult;
-    "\n  *[_type == \"home\"][0]{\n    _id,\n    title,\n    slug,\n    seo {\n      title,\n      description,\n      hideFromSearchEngines,\n      canonicalUrl,\n      openGraph {\n        title,\n        description,\n        image {\n          asset,\n          alt\n        }\n      }\n    },\n    \"pageBuilder\": pageBuilder[]{\n      _key,\n      _type,\n      _type == \"callToAction\" => {\n        _key,\n        heading,\n        text,\n        buttonText,\n        link {\n          ...,\n          _type == \"link\" => {\n            \"page\": page->slug.current,\n            \"post\": post->slug.current\n          }\n        }\n      },\n      _type == \"infoSection\" => {\n        _key,\n        heading,\n        subheading,\n        content\n      },\n      _type == \"fullWidthImage\" => {\n        _key,\n        image\n      }\n    }\n  }\n": HomeQueryResult;
+    "\n  *[_type == \"home\"][0]{\n    _id,\n    title,\n    slug,\n    seo {\n      title,\n      description,\n      hideFromSearchEngines,\n      canonicalUrl,\n      openGraph {\n        title,\n        description,\n        image {\n          asset,\n          alt\n        }\n      }\n    },\n    \"pageBuilder\": pageBuilder[]{\n      _key,\n      _type,\n      _type == \"callToAction\" => {\n        _key,\n        heading,\n        text,\n        buttonText,\n        link {\n          ...,\n          _type == \"link\" => {\n            \"page\": page->slug.current,\n            \"post\": post->slug.current\n          }\n        }\n      },\n      _type == \"infoSection\" => {\n        _key,\n        heading,\n        subheading,\n        content\n      },\n      _type == \"fullWidthImage\" => {\n        _key,\n        image\n      },\n      _type == \"homeHero\" => {\n        _key,\n        heading,\n        content\n      }\n    }\n  }\n": HomeQueryResult;
     "\n  *[_type == 'page' && slug.current == $slug][0]{\n    _id,\n    _type,\n    name,\n    slug,\n    heading,\n    subheading,\n    seo,\n    \"pageBuilder\": pageBuilder[]{\n      _key,\n      _type,\n      _type == \"callToAction\" => {\n        _key,\n        heading,\n        text,\n        buttonText,\n        \n  link {\n      ...,\n      \n  _type == \"link\" => {\n    \"page\": page->slug.current,\n    \"post\": post->slug.current\n  }\n\n      }\n,\n      },\n      _type == \"infoSection\" => {\n        _key,\n        heading,\n        subheading,\n        content[]{\n          ...,\n          markDefs[]{\n            ...,\n            \n  _type == \"link\" => {\n    \"page\": page->slug.current,\n    \"post\": post->slug.current\n  }\n\n          }\n        }\n      },\n      _type == \"fullWidthImage\" => {\n        _key,\n        image\n      }\n    },\n  }\n": GetPageQueryResult;
     "\n  *[_type == \"page\" || _type == \"post\" && defined(slug.current)] | order(_type asc) {\n    \"slug\": slug.current,\n    _type,\n    _updatedAt,\n  }\n": SitemapDataResult;
     "\n  *[_type == \"post\" && defined(slug.current)] | order(date desc, _updatedAt desc) {\n    \n  _id,\n  \"status\": select(_originalId in path(\"drafts.**\") => \"draft\", \"published\"),\n  \"title\": coalesce(title, \"Untitled\"),\n  \"slug\": slug.current,\n  excerpt,\n  coverImage,\n  \"date\": coalesce(date, _updatedAt),\n  \"author\": author->{firstName, lastName, picture},\n\n  }\n": AllPostsQueryResult;

@@ -9,6 +9,8 @@ import {VisualEditing} from 'next-sanity/visual-editing'
 import {SanityLive} from '@/sanity/lib/live'
 import {handleError} from '@/app/client-utils'
 import LayoutContent from '@/app/components/utils/LayoutContent'
+import Header from '@/app/components/global/Header'
+import Footer from '@/app/components/global/Footer'
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -27,6 +29,7 @@ export default async function RootLayout({children}: {children: React.ReactNode}
 
   return (
     <html lang="en" className={`${geist.variable} bg-white text-black`}>
+      <Header />
       <body suppressHydrationWarning>
         <Suspense>
           <div className="min-h-screen flex flex-col">
@@ -40,6 +43,7 @@ export default async function RootLayout({children}: {children: React.ReactNode}
           </div>
         </Suspense>
       </body>
+      <Footer />
       <SpeedInsights />
     </html>
   )

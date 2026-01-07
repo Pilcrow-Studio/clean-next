@@ -2,7 +2,6 @@
 
 import ClientToaster from './ClientToaster'
 import DraftModeToast from './DraftModeToast'
-import ClickEmboss from '@/app/components/interactive/clickEmboss'
 
 export default function LayoutContent({
   children,
@@ -18,7 +17,6 @@ export default function LayoutContent({
       <div className="flex flex-col justify-between grow z-10">
         <main className="page-wrapper">{children}</main>
       </div>
-      <ClickEmboss />
     </>
   )
 }

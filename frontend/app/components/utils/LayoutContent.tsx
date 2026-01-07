@@ -1,4 +1,4 @@
-'use client'
+
 
 import ClientToaster from './ClientToaster'
 import DraftModeToast from './DraftModeToast'

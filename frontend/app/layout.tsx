@@ -11,6 +11,7 @@ import {handleError} from '@/app/client-utils'
 import LayoutContent from '@/app/components/utils/LayoutContent'
 import Header from '@/app/components/global/Header'
 import Footer from '@/app/components/global/Footer'
+import ClientToaster from './components/utils/ClientToaster'
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -29,9 +30,9 @@ export default async function RootLayout({children}: {children: React.ReactNode}
 
   return (
     <html lang="en" className={`${geist.variable} bg-white text-black`}>
-      <Header />
       <body suppressHydrationWarning>
         <Suspense>
+        <Header />
           <div className="min-h-screen flex flex-col">
             {isDraftMode && (
               <>
@@ -39,12 +40,13 @@ export default async function RootLayout({children}: {children: React.ReactNode}
               </>
             )}
             <SanityLive onError={handleError} />
-            <LayoutContent isDraftMode={isDraftMode}>{children}</LayoutContent>
+            <ClientToaster />
+            <main className="pt-24 page-wrapper">{children}</main>
           </div>
+          <Footer />
         </Suspense>
+        <SpeedInsights />
       </body>
-      <Footer />
-      <SpeedInsights />
     </html>
   )
 }

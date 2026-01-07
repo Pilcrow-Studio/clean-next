@@ -12,7 +12,7 @@
  * ---------------------------------------------------------------------------------
  */
 
-// Source: schema.json
+// Source: ../studio/schema.json
 export type CallToAction = {
   _type: "callToAction";
   heading: string;
@@ -478,8 +478,10 @@ export type SanityAssetSourceData = {
 };
 
 export type AllSanitySchemaTypes = CallToAction | Link | InfoSection | BlockContent | Settings | Page | Post | Person | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
+
 export declare const internalGroqTypeReferenceTo: unique symbol;
-// Source: ./sanity/lib/queries.ts
+
+// Source: sanity/lib/queries.ts
 // Variable: settingsQuery
 // Query: *[_type == "settings"][0]
 export type SettingsQueryResult = {
@@ -536,15 +538,23 @@ export type SettingsQueryResult = {
     _type: "image";
   };
 } | null;
+
+// Source: sanity/lib/queries.ts
 // Variable: navigationQuery
 // Query: *[_type == "navigation"][0]{    _id,    logo {      asset,      alt    },    items[] {      text,      linkType,      "slug": page->slug.current,      dropdownItems[] {        text,        "slug": page->slug.current      }    }  }
 export type NavigationQueryResult = null;
+
+// Source: sanity/lib/queries.ts
 // Variable: footerQuery
 // Query: *[_type == "footer"][0]{    _id,    logo {      asset,      alt    },    companyName,    linkColumns[] {      title,      links[] {        text,        "slug": page->slug.current      }    },    infoLinks[] {      text,      "slug": page->slug.current    }  }
 export type FooterQueryResult = null;
+
+// Source: sanity/lib/queries.ts
 // Variable: homeQuery
 // Query: *[_type == "home"][0]{    _id,    title,    slug,    seo {      title,      description,      hideFromSearchEngines,      canonicalUrl,      openGraph {        title,        description,        image {          asset,          alt        }      }    },    "pageBuilder": pageBuilder[]{      _key,      _type,      _type == "callToAction" => {        _key,        heading,        text,        buttonText,        link {          ...,          _type == "link" => {            "page": page->slug.current,            "post": post->slug.current          }        }      },      _type == "infoSection" => {        _key,        heading,        subheading,        content      },      _type == "fullWidthImage" => {        _key,        image      }    }  }
 export type HomeQueryResult = null;
+
+// Source: sanity/lib/queries.ts
 // Variable: getPageQuery
 // Query: *[_type == 'page' && slug.current == $slug][0]{    _id,    _type,    name,    slug,    heading,    subheading,    seo,    "pageBuilder": pageBuilder[]{      _key,      _type,      _type == "callToAction" => {        _key,        heading,        text,        buttonText,          link {      ...,        _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }      },      },      _type == "infoSection" => {        _key,        heading,        subheading,        content[]{          ...,          markDefs[]{            ...,              _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }          }        }      },      _type == "fullWidthImage" => {        _key,        image      }    },  }
 export type GetPageQueryResult = {
@@ -598,6 +608,8 @@ export type GetPageQueryResult = {
     }> | null;
   }> | null;
 } | null;
+
+// Source: sanity/lib/queries.ts
 // Variable: sitemapData
 // Query: *[_type == "page" || _type == "post" && defined(slug.current)] | order(_type asc) {    "slug": slug.current,    _type,    _updatedAt,  }
 export type SitemapDataResult = Array<{
@@ -609,6 +621,8 @@ export type SitemapDataResult = Array<{
   _type: "post";
   _updatedAt: string;
 }>;
+
+// Source: sanity/lib/queries.ts
 // Variable: allPostsQuery
 // Query: *[_type == "post" && defined(slug.current)] | order(date desc, _updatedAt desc) {      _id,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _updatedAt),  "author": author->{firstName, lastName, picture},  }
 export type AllPostsQueryResult = Array<{
@@ -649,6 +663,8 @@ export type AllPostsQueryResult = Array<{
     };
   } | null;
 }>;
+
+// Source: sanity/lib/queries.ts
 // Variable: morePostsQuery
 // Query: *[_type == "post" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [0...$limit] {      _id,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _updatedAt),  "author": author->{firstName, lastName, picture},  }
 export type MorePostsQueryResult = Array<{
@@ -689,6 +705,8 @@ export type MorePostsQueryResult = Array<{
     };
   } | null;
 }>;
+
+// Source: sanity/lib/queries.ts
 // Variable: postQuery
 // Query: *[_type == "post" && slug.current == $slug] [0] {    content[]{    ...,    markDefs[]{      ...,        _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }    }  },      _id,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _updatedAt),  "author": author->{firstName, lastName, picture},  }
 export type PostQueryResult = {
@@ -751,11 +769,15 @@ export type PostQueryResult = {
     };
   } | null;
 } | null;
+
+// Source: sanity/lib/queries.ts
 // Variable: postPagesSlugs
 // Query: *[_type == "post" && defined(slug.current)]  {"slug": slug.current}
 export type PostPagesSlugsResult = Array<{
   slug: string;
 }>;
+
+// Source: sanity/lib/queries.ts
 // Variable: pagesSlugs
 // Query: *[_type == "page" && defined(slug.current)]  {"slug": slug.current}
 export type PagesSlugsResult = Array<{
@@ -779,3 +801,4 @@ declare module "@sanity/client" {
     "\n  *[_type == \"page\" && defined(slug.current)]\n  {\"slug\": slug.current}\n": PagesSlugsResult;
   }
 }
+

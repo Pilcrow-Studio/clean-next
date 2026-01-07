@@ -1,6 +1,19 @@
 import {defineQuery} from 'next-sanity'
 
-export const settingsQuery = defineQuery(`*[_type == "settings"][0]`)
+export const settingsQuery = defineQuery(`
+  *[_type == "settings"][0]{
+    _id,
+    logo {
+      asset->{
+        url,
+        extension,
+        mimeType
+      },
+      alt
+    },
+    title
+  }
+`)
 
 export const navigationQuery = defineQuery(`
   *[_type == "navigation"][0]{
@@ -18,6 +31,14 @@ export const navigationQuery = defineQuery(`
         "slug": page->slug.current
       }
     }
+  }
+`)
+
+export const homeHeroQuery = defineQuery(`
+  *[_type == "homeHero"][0]{
+    _id,
+    heading,
+    content
   }
 `)
 
@@ -87,6 +108,11 @@ export const homeQuery = defineQuery(`
       _type == "fullWidthImage" => {
         _key,
         image
+      },
+      _type == "homeHero" => {
+        _key,
+        heading,
+        content
       }
     }
   }

@@ -20,7 +20,7 @@ import {assist} from '@sanity/assist'
 import Icon from './Icon'
 
 // Environment variables for project configuration
-const projectId = process.env.SANITY_STUDIO_PROJECT_ID || 'your-projectID'
+const projectId = process.env.SANITY_STUDIO_PROJECT_ID
 const dataset = process.env.SANITY_STUDIO_DATASET || 'production'
 
 // URL for preview functionality, defaults to localhost:3000 if not set
@@ -51,10 +51,8 @@ export default defineConfig({
   name: 'default',
   title: 'Sanity + Next.js Starter Template',
   icon: Icon,
-
-  projectId,
+  projectId: projectId || '',
   dataset,
-
   plugins: [
     // Presentation tool configuration for Visual Editing
     presentationTool({

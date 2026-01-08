@@ -41,7 +41,11 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     // Metadata should never contain stega
     stega: false,
   })
-  return generateMetadataFromSeo(page?.seo, page?.name, page?.heading)
+  return generateMetadataFromSeo(
+    page?.seo,
+    page?.name,
+    page?.heading || page?.name || 'Explore our content'
+  )
 }
 
 export default async function Page(props: Props) {

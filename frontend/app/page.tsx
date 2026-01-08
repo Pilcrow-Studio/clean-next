@@ -29,7 +29,11 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 
   const homeData = home as unknown as HomeData
-  return generateMetadataFromSeo(homeData.seo, homeData.title || 'Home', undefined)
+  return generateMetadataFromSeo(
+    homeData.seo,
+    homeData.title || 'Home',
+    'Welcome to our site'
+  )
 }
 
 export default async function Page() {

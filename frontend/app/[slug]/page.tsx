@@ -58,11 +58,11 @@ export default async function Page(props: Props) {
   }
 
   return (
-    <div className="my-12 lg:my-24">
-      <div className="">
+    <div>
+      <div>
         <div className="container">
-          <div className="pb-6 border-b border-gray-100">
-            <div className="max-w-3xl">
+          <div className="pb-12">
+            <div>
                 <h2 className="text-4xl font-bold tracking-tight  sm:text-5xl lg:text-7xl">
                   {page.heading}
                 </h2>

@@ -69,7 +69,7 @@ export default async function Header() {
                           <button className="hover:underline cursor-pointer flex items-center gap-1">
                             {item.text} <ChevronDown className="w-4 h-4" />
                           </button>
-                          <ul className="absolute px-2 left-0 top-full mt-2 bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 min-w-[200px] py-1 z-50">
+                          <ul className="absolute px-1 py-1 left-0 top-full mt-2 bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 min-w-[200px] z-50">
                             {item.dropdownItems.map((subItem, subIndex) => {
                               if (!subItem?.slug || !subItem?.text) return null
                               const subHref = subItem.slug === 'home' || subItem.slug === '/' ? '/' : `/${subItem.slug}`

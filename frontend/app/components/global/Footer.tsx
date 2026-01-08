@@ -1,12 +1,16 @@
 import Link from 'next/link'
 import {footerQuery} from '@/sanity/lib/queries'
 import {sanityFetch} from '@/sanity/lib/live'
-import ResponsiveImage from '../ui/ResponsiveImage'
+import SanitySvg from '../ui/SanitySvg'
 
 type Footer = {
   _id: string
   logo?: {
-    asset?: any
+    asset?: {
+      url?: string
+      extension?: string
+      mimeType?: string
+    }
     alt?: string | null
   }
   companyName?: string | null
@@ -41,14 +45,12 @@ export default async function Footer() {
         <div className="flex flex-wrap justify-between gap-8 mb-8">
           {/* Logo and Company Name */}
           <div className="md:col-span-4">
-            <Link href="/" className="inline-block mb-4">
-              {footer.logo?.asset ? (
-                <ResponsiveImage
-                  image={footer.logo}
+            <Link href="/" className="inline-block mb-4 dark:text-white">
+              {footer.logo?.asset?.url ? (
+                <SanitySvg
+                  url={footer.logo.asset.url}
                   alt={footer.logo.alt || footer.companyName || 'Logo'}
-                  className="h-8 w-auto"
-                  sizes="150px"
-                  quality={90}
+                  className="h-8 w-auto [&>svg]:h-full [&>svg]:w-auto"
                 />
               ) : (
                 <span className="text-xl font-bold">{footer.companyName}</span>

@@ -50,7 +50,11 @@ export const footerQuery = defineQuery(`
   *[_type == "footer"][0]{
     _id,
     logo {
-      asset,
+      asset->{
+        url,
+        extension,
+        mimeType
+      },
       alt
     },
     companyName,

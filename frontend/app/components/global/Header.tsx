@@ -3,6 +3,7 @@ import {navigationQuery} from '@/sanity/lib/queries'
 import {sanityFetch} from '@/sanity/lib/live'
 import MobileMenu from './MobileMenu'
 import { ChevronDown } from 'lucide-react'
+import SanitySvg from '../ui/SanitySvg'
 
 type NavigationItem = {
   text?: string | null
@@ -34,44 +35,16 @@ export default async function Header() {
 
   const navigation = data as Navigation | null
 
-  // Fetch SVG content if it's an SVG file
-  let svgContent: string | null = null
-  const isSvg = navigation?.logo?.asset?.url?.endsWith('.svg') ||
-                navigation?.logo?.asset?.mimeType === 'image/svg+xml' ||
-                navigation?.logo?.asset?.extension === 'svg'
-
-  console.log('Logo asset:', navigation?.logo?.asset)
-  console.log('Is SVG:', isSvg)
-
-  if (navigation?.logo?.asset?.url && isSvg) {
-    try {
-      const response = await fetch(navigation.logo.asset.url)
-      console.log('Fetch response:', response.status, response.ok)
-      if (response.ok) {
-        svgContent = await response.text()
-        console.log('SVG content length:', svgContent?.length)
-      }
-    } catch (error) {
-      console.error('Failed to fetch SVG:', error)
-    }
-  }
-
   return (
     <header className="fixed z-50 h-(--nav-height) inset-0 bg-white/80 dark:bg-black/80 flex items-center backdrop-blur-lg">
       <div className="container py-2 px-2 sm:px-6">
         <div className="flex items-center justify-between gap-5">
           <Link className="flex items-center gap-2 dark:text-white" href="/">
-            {svgContent ? (
-              <div
-                className="h-8 w-auto [&>svg]:h-full [&>svg]:w-auto"
-                dangerouslySetInnerHTML={{__html: svgContent}}
-                aria-label={navigation?.logo?.alt || 'Logo'}
-              />
-            ) : navigation?.logo?.asset?.url ? (
-              <img
-                src={navigation.logo.asset.url}
+            {navigation?.logo?.asset?.url ? (
+              <SanitySvg
+                url={navigation.logo.asset.url}
                 alt={navigation.logo.alt || 'Logo'}
-                className="h-8 w-auto"
+                className="h-8 w-auto [&>svg]:h-full [&>svg]:w-auto"
               />
             ) : (
               <span className="text-sm pl-2 font-semibold">Logo</span>

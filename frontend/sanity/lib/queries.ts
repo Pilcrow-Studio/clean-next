@@ -19,7 +19,11 @@ export const navigationQuery = defineQuery(`
   *[_type == "navigation"][0]{
     _id,
     logo {
-      asset,
+      asset->{
+        url,
+        extension,
+        mimeType
+      },
       alt
     },
     items[] {

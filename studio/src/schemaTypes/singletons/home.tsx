@@ -32,6 +32,7 @@ export const home = defineType({
       title: 'Title',
       type: 'string',
       group: 'content',
+      hidden: true,
     }),
     defineField({
         name: 'slug',

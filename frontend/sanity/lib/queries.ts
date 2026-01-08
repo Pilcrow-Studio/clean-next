@@ -122,6 +122,11 @@ export const homeQuery = defineQuery(`
         _key,
         heading,
         content
+      },
+      _type == "subpageHero" => {
+        _key,
+        heading,
+        content
       }
     }
   }
@@ -182,6 +187,11 @@ export const getPageQuery = defineQuery(`
             ${linkReference}
           }
         }
+      },
+      _type == "subpageHero" => {
+        _key,
+        heading,
+        content
       },
       _type == "fullWidthImage" => {
         _key,

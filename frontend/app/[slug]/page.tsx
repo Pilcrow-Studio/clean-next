@@ -1,15 +1,15 @@
 
 import type {Metadata} from 'next'
 import Head from 'next/head'
-import PageBuilderPage from '@/app/components/pageBuilder/PageBuilder'
+import PageBuilder from '@/app/components/pageBuilder/PageBuilder'
 import {sanityFetch} from '@/sanity/lib/live'
 import {getPageQuery, pagesSlugs} from '@/sanity/lib/queries'
 import {generateMetadataFromSeo} from '@/sanity/lib/utils'
 import NotFound from '../components/global/404'
 
 
-// Revalidate every hour (3600 seconds)
-export const revalidate = 3600
+// Use on-demand revalidation via webhook instead of time-based
+export const revalidate = false
 
 type Props = {
   params: Promise<{slug: string}>
@@ -41,7 +41,6 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     // Metadata should never contain stega
     stega: false,
   })
-
   return generateMetadataFromSeo(page?.seo, page?.name, page?.heading)
 }
 
@@ -59,21 +58,7 @@ export default async function Page(props: Props) {
 
   return (
     <div>
-      <div>
-        <div className="container">
-          <div className="pb-12">
-            <div>
-                <h2 className="text-4xl font-bold tracking-tight  sm:text-5xl lg:text-7xl">
-                  {page.heading}
-                </h2>
-              <p className="mt-4 text-base lg:text-lg leading-relaxed  uppercase font-light">
-                {page.subheading}
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <PageBuilderPage sections={page.pageBuilder ?? undefined} pageId={page._id} pageType="page" />
+      <PageBuilder sections={page.pageBuilder ?? undefined} pageId={page._id} pageType="page" />
     </div>
   )
 }

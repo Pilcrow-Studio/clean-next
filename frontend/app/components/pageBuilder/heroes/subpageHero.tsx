@@ -1,6 +1,6 @@
 import PortableText from '@/app/components/ui/PortableText'
 
-interface HomeHeroProps {
+interface SubpageHeroProps {
   _type?: string
   _key?: string
   heading?: string
@@ -10,7 +10,7 @@ interface HomeHeroProps {
     content?: any
   }
 }
-export default function HomeHero(props: HomeHeroProps) {
+export default function SubpageHero(props: SubpageHeroProps) {
   const {heading, content} = props.block || props
   return (
     <section className="py-8 md:py-24">

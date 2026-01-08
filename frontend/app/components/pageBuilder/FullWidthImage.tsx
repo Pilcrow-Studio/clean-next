@@ -40,9 +40,9 @@ export default function FullWidthImage(props: FullWidthImageProps) {
           quality={80}
           loading="eager"
           usePixelDensity={true}
-          baseWidth={560}
-          fetchPriority="high"
+          baseWidth={600}
           aspectRatio={16/9}
+          fetchPriority="high"
           fit="crop"
         />
       </div>

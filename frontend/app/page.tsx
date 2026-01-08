@@ -50,6 +50,7 @@ export default async function Page() {
   }
 
   const homeData = home as unknown as HomeData
+  
   return (
     <div>
       <PageBuilder

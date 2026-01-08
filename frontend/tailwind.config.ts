@@ -95,7 +95,8 @@ export default {
         },
       },
       fontFamily: {
-        sans: ['var(--font-inter)'],
+        sans: ['Lars', 'sans-serif'],
+        serif: ['IvarText', 'serif'],
       },
     },
   },

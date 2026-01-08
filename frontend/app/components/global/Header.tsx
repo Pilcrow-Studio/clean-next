@@ -47,7 +47,7 @@ export default async function Header() {
                 className="h-4 md:h-6 w-auto [&>svg]:h-full [&>svg]:w-auto"
               />
             ) : (
-              <span className="text-sm pl-2 font-semibold">Logo</span>
+              <span className="text-sm pl-2 font-medium">Logo</span>
             )}
           </Link>
 

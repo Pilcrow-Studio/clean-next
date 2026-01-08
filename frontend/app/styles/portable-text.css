@@ -7,36 +7,36 @@
 
 /* Headings - Consistent spacing and hierarchy */
 .portable-text h1 {
-  @apply text-4xl sm:text-5xl font-bold tracking-tight;
+  @apply text-4xl sm:text-5xl font-medium tracking-tight;
   @apply mt-12 mb-6 first:mt-0;
   @apply leading-tight;
 }
 
 .portable-text h2 {
-  @apply text-3xl sm:text-4xl font-bold tracking-tight;
+  @apply text-3xl sm:text-4xl font-medium tracking-tight;
   @apply mt-10 mb-5 first:mt-0;
   @apply leading-tight;
 }
 
 .portable-text h3 {
-  @apply text-2xl sm:text-3xl font-bold;
+  @apply text-2xl sm:text-3xl font-medium;
   @apply mt-8 mb-4 first:mt-0;
   @apply leading-snug;
 }
 
 .portable-text h4 {
-  @apply text-xl sm:text-2xl font-semibold;
+  @apply text-xl sm:text-2xl font-medium;
   @apply mt-6 mb-3 first:mt-0;
   @apply leading-snug;
 }
 
 .portable-text h5 {
-  @apply text-lg sm:text-xl font-semibold;
+  @apply text-lg sm:text-xl font-medium;
   @apply mt-6 mb-3 first:mt-0;
 }
 
 .portable-text h6 {
-  @apply text-base sm:text-lg font-semibold;
+  @apply text-base sm:text-lg font-medium;
   @apply mt-6 mb-3 first:mt-0;
 }
 
@@ -118,7 +118,7 @@
 
 /* Strong and Emphasis */
 .portable-text strong {
-  @apply font-semibold;
+  @apply font-medium;
 }
 
 .portable-text em {

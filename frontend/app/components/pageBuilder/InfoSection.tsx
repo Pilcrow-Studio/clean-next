@@ -32,7 +32,7 @@ export default function InfoSection(props: InfoSectionProps) {
           </p>
         )}
         {heading && (
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-8">
+          <h2 className="text-3xl md:text-4xl font-medium tracking-tight mb-8">
             {heading}
           </h2>
         )}

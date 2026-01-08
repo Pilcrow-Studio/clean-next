@@ -55,7 +55,7 @@ export default async function Footer() {
                   className="h-8 w-auto [&>svg]:h-full [&>svg]:w-auto"
                 />
               ) : (
-                <span className="text-xl font-bold">{footer.companyName}</span>
+                <span className="text-xl font-medium">{footer.companyName}</span>
               )}
             </Link>
             {footer.footerText && (
@@ -71,7 +71,7 @@ export default async function Footer() {
 
                 return (
                   <div key={columnIndex}>
-                    <h3 className="font-semibold text-sm uppercase tracking-wide mb-4">
+                    <h3 className="font-medium text-sm uppercase tracking-wide mb-4">
                       {column.title}
                     </h3>
                     {column.links && column.links.length > 0 && (
@@ -86,7 +86,7 @@ export default async function Footer() {
                             <li key={linkIndex}>
                               <Link
                                 href={href}
-                                className="text-sm transition-colors"
+                                className="font-sans text-sm transition-colors"
                               >
                                 {link.text}
                               </Link>
@@ -120,7 +120,7 @@ export default async function Footer() {
                   <li key={index}>
                     <Link
                       href={href}
-                      className="text-sm transition-colors"
+                      className="font-sans text-sm transition-colors"
                     >
                       {link.text}
                     </Link>

@@ -26,7 +26,7 @@ export default function CallToAction(props: CallToActionProps) {
   return (
     <section className="py-16 md:py-24">
       <div className="container mx-auto max-w-4xl text-center px-4">
-        <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-6">
+        <h2 className="text-4xl md:text-5xl mb-6">
           {heading}
         </h2>
         {text && (

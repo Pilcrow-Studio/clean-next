@@ -2,13 +2,12 @@ import './styles/globals.css'
 
 import {SpeedInsights} from '@vercel/speed-insights/next'
 import type {Viewport} from 'next'
-import {Geist} from 'next/font/google'
+import localFont from 'next/font/local'
 import {draftMode} from 'next/headers'
 import {Suspense} from 'react'
 import {VisualEditing} from 'next-sanity/visual-editing'
 import {SanityLive} from '@/sanity/lib/live'
 import {handleError} from '@/app/client-utils'
-import LayoutContent from '@/app/components/utils/LayoutContent'
 import Header from '@/app/components/global/Header'
 import Footer from '@/app/components/global/Footer'
 import ClientToaster from './components/utils/ClientToaster'
@@ -19,9 +18,45 @@ export const viewport: Viewport = {
   maximumScale: 5,
 }
 
-const geist = Geist({
-  variable: '--font-geist',
-  subsets: ['latin'],
+const lars = localFont({
+  src: [
+    {
+      path: './fonts/Lars-Regular.woff2',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: './fonts/Lars-RegularItalic.woff2',
+      weight: '400',
+      style: 'italic',
+    },
+    {
+      path: './fonts/Lars-Medium.woff2',
+      weight: '500',
+      style: 'normal',
+    },
+    {
+      path: './fonts/Lars-MediumItalic.woff2',
+      weight: '500',
+      style: 'italic',
+    },
+  ],
+  display: 'swap',
+})
+
+const ivar = localFont({
+  src: [
+    {
+      path: './fonts/IvarText-Regular.woff2',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: './fonts/IvarText-Italic.woff2',
+      weight: '400',
+      style: 'italic',
+    },
+  ],
   display: 'swap',
 })
 
@@ -29,7 +64,7 @@ export default async function RootLayout({children}: {children: React.ReactNode}
   const {isEnabled: isDraftMode} = await draftMode()
 
   return (
-    <html lang="en" className={`${geist.variable} bg-white text-black`}>
+    <html lang="en" className={`${lars.className} ${ivar.className}`}>
       <body suppressHydrationWarning>
         <Suspense>
         <Header />

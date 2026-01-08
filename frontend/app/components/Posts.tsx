@@ -27,7 +27,7 @@ const Post = ({post}: {post: AllPostsQueryResult[number]}) => {
         <span className="absolute inset-0 z-10" />
       </Link>
       <div>
-        <h3 className="text-2xl font-bold mb-4 leading-tight">{title}</h3>
+        <h3 className="text-2xl font-medium mb-4 leading-tight">{title}</h3>
 
         <p className="line-clamp-3 text-sm leading-6 max-w-[70ch]">{excerpt}</p>
       </div>
@@ -56,7 +56,7 @@ const Posts = ({
 }) => (
   <div>
     {heading && (
-      <h2 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
+      <h2 className="text-3xl font-medium tracking-tight sm:text-4xl lg:text-5xl">
         {heading}
       </h2>
     )}

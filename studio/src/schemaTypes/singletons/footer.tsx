@@ -41,6 +41,11 @@ export const footerType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'footerText',
+      type: 'blockContent',
+      title: 'Footer Text',
+    }),
+    defineField({
       name: 'linkColumns',
       type: 'array',
       title: 'Link Columns',

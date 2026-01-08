@@ -31,7 +31,7 @@ export default function FullWidthImage(props: FullWidthImageProps) {
 
   return (
     <section className="w-full">
-      <div className="relative w-full aspect-video">
+      <div className="relative w-full aspect-video min-h-[720px]">
         <ResponsiveImage
           image={imageData}
           alt={altText}

@@ -58,6 +58,7 @@ export const footerQuery = defineQuery(`
       alt
     },
     companyName,
+    footerText,
     linkColumns[] {
       title,
       links[] {

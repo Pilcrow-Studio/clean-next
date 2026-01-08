@@ -14,8 +14,9 @@ interface HomeHeroProps {
 export default function HomeHero(props: HomeHeroProps) {
   const {heading, content} = props.block || props
   return (
-    <section className="py-8 md:py-12">
-      <div className="max-w-prose mx-auto px-4">
+    <section className="py-8 md:py-24">
+      <div className="container mx-auto px-4">
+        <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold mb-6 tracking-tight">{heading}</h1>
         <PortableText value={content} />
       </div>
     </section>

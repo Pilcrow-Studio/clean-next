@@ -2,6 +2,7 @@ import Link from 'next/link'
 import {footerQuery} from '@/sanity/lib/queries'
 import {sanityFetch} from '@/sanity/lib/live'
 import SanitySvg from '../ui/SanitySvg'
+import PortableText from '../ui/PortableText'
 
 type Footer = {
   _id: string
@@ -14,6 +15,7 @@ type Footer = {
     alt?: string | null
   }
   companyName?: string | null
+  footerText?: any | null
   linkColumns?: Array<{
     title?: string | null
     links?: Array<{
@@ -56,8 +58,8 @@ export default async function Footer() {
                 <span className="text-xl font-bold">{footer.companyName}</span>
               )}
             </Link>
-            {footer.companyName && footer.logo?.asset && (
-              <p className="text-sm">{footer.companyName}</p>
+            {footer.footerText && (
+              <PortableText value={footer.footerText} />
             )}
           </div>
 

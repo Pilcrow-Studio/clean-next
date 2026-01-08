@@ -36,7 +36,7 @@ export default async function Header() {
   const navigation = data as Navigation | null
 
   return (
-    <header className="fixed z-50 h-(--nav-height) inset-0 bg-white/80 dark:bg-black/80 flex items-center backdrop-blur-lg">
+    <header className="fixed z-50 h-10 md:h-(--nav-height) inset-0 bg-white/80 dark:bg-black/80 flex items-center backdrop-blur-lg">
       <div className="container py-2 px-2 sm:px-6">
         <div className="flex items-center justify-between gap-5">
           <Link className="flex items-center gap-2 dark:text-white" href="/">
@@ -44,7 +44,7 @@ export default async function Header() {
               <SanitySvg
                 url={navigation.logo.asset.url}
                 alt={navigation.logo.alt || 'Logo'}
-                className="h-8 w-auto [&>svg]:h-full [&>svg]:w-auto"
+                className="h-4 md:h-6 w-auto [&>svg]:h-full [&>svg]:w-auto"
               />
             ) : (
               <span className="text-sm pl-2 font-semibold">Logo</span>

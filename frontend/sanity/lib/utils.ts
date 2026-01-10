@@ -118,7 +118,7 @@ export function generateMetadataFromSeo(
 
   // Title
   if (seo?.title || fallbackTitle) {
-    metadata.title = seo?.title || fallbackTitle
+    metadata.title = "Pilcrow | " + seo?.title || fallbackTitle
   }
 
   // Description

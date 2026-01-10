@@ -25,7 +25,7 @@ export default function InfoSection(props: InfoSectionProps) {
     
     <section className="py-16 md:py-24">
       
-      <div className="container mx-auto">
+      <div className="container px-6 mx-auto">
         {subheading && (
           <p className="text-sm uppercase tracking-wide mb-2 font-medium">
             {subheading}

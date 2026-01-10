@@ -1,4 +1,3 @@
-
 import type {Metadata} from 'next'
 import Head from 'next/head'
 import PageBuilder from '@/app/components/pageBuilder/PageBuilder'
@@ -6,7 +5,6 @@ import {sanityFetch} from '@/sanity/lib/live'
 import {getPageQuery, pagesSlugs} from '@/sanity/lib/queries'
 import {generateMetadataFromSeo} from '@/sanity/lib/utils'
 import NotFound from '../components/global/404'
-
 
 // Use on-demand revalidation via webhook instead of time-based
 export const revalidate = false
@@ -44,7 +42,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   return generateMetadataFromSeo(
     page?.seo,
     page?.name,
-    page?.heading || page?.name || 'Explore our content'
+    page?.heading || page?.name || 'Explore our content',
   )
 }
 
@@ -62,7 +60,10 @@ export default async function Page(props: Props) {
 
   return (
     <div>
-      <PageBuilder sections={page.pageBuilder ?? undefined} pageId={page._id} pageType="page" />
+      <div className="absolute pointer-events-none top-0 left-0 w-full h-[280px] bg-linear-to-b from-emerald-300 to-transparent" />
+      <div className="relative z-50">
+        <PageBuilder sections={page.pageBuilder ?? undefined} pageId={page._id} pageType="page" />
+      </div>
     </div>
   )
 }

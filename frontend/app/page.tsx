@@ -29,11 +29,8 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 
   const homeData = home as unknown as HomeData
-  return generateMetadataFromSeo(
-    homeData.seo,
-    homeData.title || 'Home',
-    'Welcome to our site'
-  )
+
+  return generateMetadataFromSeo(homeData.seo, homeData.title || 'Home', 'Welcome to our site')
 }
 
 export default async function Page() {
@@ -57,11 +54,7 @@ export default async function Page() {
 
   return (
     <div>
-      <PageBuilder
-        sections={homeData.pageBuilder}
-        pageId={homeData._id}
-        pageType="home"
-      />
+      <PageBuilder sections={homeData.pageBuilder} pageId={homeData._id} pageType="home" />
     </div>
   )
 }

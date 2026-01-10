@@ -41,7 +41,7 @@ export default async function Footer() {
   const footer = data as Footer
 
   return (
-    <footer className="bg-gray-50 border-t border-gray-200 dark:bg-gray-900 dark:border-gray-800 ">
+    <footer className="bg-gray-50 border-t border-gray-200 dark:bg-gray-950 dark:border-gray-800 ">
       <div className="container py-12 md:py-16">
         {/* Top Section: Logo and Link Columns */}
         <div className="flex flex-wrap justify-between gap-8 mb-8">

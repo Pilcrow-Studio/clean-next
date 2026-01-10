@@ -41,6 +41,7 @@ const lars = localFont({
       style: 'italic',
     },
   ],
+  variable: '--font-sans',
   display: 'swap',
 })
 
@@ -57,6 +58,7 @@ const ivar = localFont({
       style: 'italic',
     },
   ],
+  variable: '--font-serif',
   display: 'swap',
 })
 
@@ -64,7 +66,7 @@ export default async function RootLayout({children}: {children: React.ReactNode}
   const {isEnabled: isDraftMode} = await draftMode()
 
   return (
-    <html lang="en" className={`${lars.className} ${ivar.className}`}>
+    <html lang="en" className={`${lars.variable} ${ivar.variable}`}>
       <body suppressHydrationWarning>
         <Suspense>
         <Header />

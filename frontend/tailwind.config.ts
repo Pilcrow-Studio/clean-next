@@ -94,10 +94,6 @@ export default {
           950: '#14211a',
         },
       },
-      fontFamily: {
-        sans: ['Lars', 'sans-serif'],
-        serif: ['IvarText', 'serif'],
-      },
     },
   },
   future: {

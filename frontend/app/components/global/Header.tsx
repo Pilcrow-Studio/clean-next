@@ -36,86 +36,85 @@ export default async function Header() {
   const navigation = data as Navigation | null
 
   return (
-    <header className="fixed z-50 h-10 md:h-(--nav-height) inset-0 bg-white/80 dark:bg-black/80 flex items-center backdrop-blur-lg">
-      <div className="container py-2 px-2 sm:px-6">
-        <div className="flex items-center justify-between gap-5">
-          <Link className="flex items-center gap-2 dark:text-white" href="/">
-            {navigation?.logo?.asset?.url ? (
-              <SanitySvg
-                url={navigation.logo.asset.url}
-                alt={navigation.logo.alt || 'Logo'}
-                className="h-4 md:h-6 w-auto [&>svg]:h-full [&>svg]:w-auto"
-              />
-            ) : (
-              <span className="text-sm pl-2 font-medium">Logo</span>
-            )}
-          </Link>
-
-          {navigation?.items && navigation.items.length > 0 && (
-            <>
-              {/* Desktop Navigation */}
-              <nav className="hidden md:block">
-                <ul
-                  role="list"
-                  className="flex items-center gap-4 md:gap-6 leading-5 text-sm tracking-tight font-mono"
-                >
-                  {navigation.items.map((item, index) => {
-                    const linkType = item.linkType || 'default'
-
-                    // For dropdown items
-                    if (linkType === 'dropdown' && item.dropdownItems?.length) {
+    <div className="fixed z-50 w-full">
+      <div className="bg-amber-200 text-xs md:text-sm text-black text-center py-2">THIS IS A BANNER</div>
+      <header className="z-50 h-10 md:h-(--nav-height) inset-0 flex items-center">
+        <div className="container py-2 px-2 sm:px-6">
+          <div className="flex items-center justify-between gap-5">
+            <Link className="flex items-center gap-2 dark:text-white" href="/">
+              {navigation?.logo?.asset?.url ? (
+                <SanitySvg
+                  url={navigation.logo.asset.url}
+                  alt={navigation.logo.alt || 'Logo'}
+                  className="h-4 md:h-6 w-auto [&>svg]:h-full [&>svg]:w-auto"
+                />
+              ) : (
+                <span className="text-sm pl-2 font-medium">Logo</span>
+              )}
+            </Link>
+            {navigation?.items && navigation.items.length > 0 && (
+              <>
+                {/* Desktop Navigation */}
+                <nav className="hidden md:block">
+                  <ul
+                    role="list"
+                    className="flex items-center gap-4 md:gap-6 leading-5 text-sm tracking-tight font-mono"
+                  >
+                    {navigation.items.map((item, index) => {
+                      const linkType = item.linkType || 'default'
+                      // For dropdown items
+                      if (linkType === 'dropdown' && item.dropdownItems?.length) {
+                        return (
+                          <li key={index} className="relative group">
+                            <button className="hover:underline cursor-pointer flex items-center gap-1">
+                              {item.text} <ChevronDown className="w-4 h-4" />
+                            </button>
+                            <ul className="absolute px-1 py-1 left-0 top-full mt-2 bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 min-w-[200px] z-50">
+                              {item.dropdownItems.map((subItem, subIndex) => {
+                                if (!subItem?.slug || !subItem?.text) return null
+                                const subHref = subItem.slug === 'home' || subItem.slug === '/' ? '/' : `/${subItem.slug}`
+                                return (
+                                  <li key={subIndex}>
+                                    <Link
+                                      href={subHref}
+                                      className="block px-4 py-2 rounded-sm hover:bg-gray-100 dark:hover:bg-gray-900"
+                                    >
+                                      {subItem.text}
+                                    </Link>
+                                  </li>
+                                )
+                              })}
+                            </ul>
+                          </li>
+                        )
+                      }
+                      // For CTA and default links
+                      if (!item?.slug || !item?.text) return null
+                      const href = item.slug === 'home' || item.slug === '/' ? '/' : `/${item.slug}`
                       return (
-                        <li key={index} className="relative group">
-                          <button className="hover:underline cursor-pointer flex items-center gap-1">
-                            {item.text} <ChevronDown className="w-4 h-4" />
-                          </button>
-                          <ul className="absolute px-1 py-1 left-0 top-full mt-2 bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 min-w-[200px] z-50">
-                            {item.dropdownItems.map((subItem, subIndex) => {
-                              if (!subItem?.slug || !subItem?.text) return null
-                              const subHref = subItem.slug === 'home' || subItem.slug === '/' ? '/' : `/${subItem.slug}`
-                              return (
-                                <li key={subIndex}>
-                                  <Link
-                                    href={subHref}
-                                    className="block px-4 py-2 rounded-sm hover:bg-gray-100 dark:hover:bg-gray-900"
-                                  >
-                                    {subItem.text}
-                                  </Link>
-                                </li>
-                              )
-                            })}
-                          </ul>
+                        <li key={index}>
+                          <Link
+                            href={href}
+                            className={
+                              linkType === 'cta'
+                                ? 'px-4 py-2 bg-black dark:bg-white text-white dark:text-black rounded-md hover:opacity-80 transition-opacity'
+                                : 'hover:underline'
+                            }
+                          >
+                            {item.text}
+                          </Link>
                         </li>
                       )
-                    }
-
-                    // For CTA and default links
-                    if (!item?.slug || !item?.text) return null
-                    const href = item.slug === 'home' || item.slug === '/' ? '/' : `/${item.slug}`
-
-                    return (
-                      <li key={index}>
-                        <Link
-                          href={href}
-                          className={
-                            linkType === 'cta'
-                              ? 'px-4 py-2 bg-black dark:bg-white text-white dark:text-black rounded-md hover:opacity-80 transition-opacity'
-                              : 'hover:underline'
-                          }
-                        >
-                          {item.text}
-                        </Link>
-                      </li>
-                    )
-                  })}
-                </ul>
-              </nav>
-              {/* Mobile Menu */}
-              <MobileMenu items={navigation.items} />
-            </>
-          )}
+                    })}
+                  </ul>
+                </nav>
+                {/* Mobile Menu */}
+                <MobileMenu items={navigation.items} />
+              </>
+            )}
+          </div>
         </div>
-      </div>
-    </header>
+      </header>
+    </div>
   )
 }

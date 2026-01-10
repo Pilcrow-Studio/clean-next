@@ -41,7 +41,7 @@ export default function MobileMenu({items}: MobileMenuProps) {
       {/* Mobile Menu Button - Only visible on mobile */}
       <button
         onClick={toggleMenu}
-        className="md:hidden text-sm font-mono tracking-tight hover:underline"
+        className="md:hidden text-sm font-mono tracking-tight hover:underline z-99999"
         aria-label={isOpen ? 'Close menu' : 'Open menu'}
       >
         {isOpen ? 'Close' : 'Menu'}
@@ -49,7 +49,7 @@ export default function MobileMenu({items}: MobileMenuProps) {
 
       {/* Fullscreen Mobile Menu Overlay */}
       {isOpen && (
-        <div className="fixed left-0 right-0 top-(--nav-height) h-[calc(100vh-var(--nav-height))] z-40 bg-white dark:bg-black md:hidden">
+        <div className="fixed left-0 right-0 top-10 h-[calc(100vh-40px)] z-99999 bg-white dark:bg-black md:hidden">
           <div className="container h-full flex flex-col">
             {/* Navigation Items */}
             <nav className="flex-1 flex items-start justify-start pt-12 px-2 sm:px-6">

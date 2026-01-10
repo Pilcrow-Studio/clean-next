@@ -53,7 +53,7 @@
 }
 
 .portable-text ul {
-  @apply list-disc -mt-1;
+  @apply list-disc -mt-1 font-sans;
 }
 
 .portable-text ol {
@@ -61,7 +61,7 @@
 }
 
 .portable-text li {
-  @apply pl-1;
+  @apply pl-1 font-sans;
 }
 
 .portable-text li > ul,
@@ -72,9 +72,9 @@
 /* Blockquotes - Distinctive styling */
 .portable-text blockquote {
   @apply my-6 px-6 py-4;
-  @apply border-l-4 border-gray-300 ;
+  @apply border-l-4 border-gray-300;
   @apply bg-gray-50 ;
-  @apply italic text-lg;
+  @apply font-sans font-medium text-2xl;
   @apply rounded-r-md;
 }
 

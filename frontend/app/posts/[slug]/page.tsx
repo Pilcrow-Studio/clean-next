@@ -5,6 +5,7 @@ import {Suspense} from 'react'
 
 import Avatar from '@/app/components/ui/Avatar'
 import CoverImage from '@/app/components/ui/CoverImage'
+import ResponsiveImage from '@/app/components/ui/ResponsiveImage'
 import {MorePosts} from '@/app/components/Posts'
 import PortableText from '@/app/components/ui/PortableText'
 import {sanityFetch} from '@/sanity/lib/live'
@@ -85,9 +86,23 @@ export default async function PostPage(props: Props) {
                 )}
               </div>
             </div>
-            <article className="gap-6 grid max-w-4xl">
+            <article className="gap-6 grid">
               <div className="">
-                {post?.coverImage && <CoverImage image={post.coverImage} priority />}
+                {post?.coverImage && (
+                  <div className="aspect-video">
+                    <ResponsiveImage
+                      image={post.coverImage as any}
+                      alt={post.coverImage.alt}
+                      className="w-full h-full object-cover"
+                      sizes="100vw"
+                      quality={60}
+                      aspectRatio={16 / 9}
+                      usePixelDensity={true}
+                      baseWidth={736}
+                      fit="crop"
+                    />
+                  </div>
+                )}
               </div>
               {post.content?.length && (
                 <PortableText
@@ -104,7 +119,7 @@ export default async function PostPage(props: Props) {
       <div className="border-t border-gray-100 bg-gray-50">
         <div className="container py-12 lg:py-24 grid gap-12">
           <aside>
-            <Suspense>{await MorePosts({skip: post._id, limit: 2})}</Suspense>
+            <Suspense>{await MorePosts({skip: post._id, limit: Number.MAX_SAFE_INTEGER})}</Suspense>
           </aside>
         </div>
       </div>
